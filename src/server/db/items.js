@@ -1,9 +1,8 @@
-const { client } = require('../../../../../unit4.JuiceBox/Unit4.Juicebox.Starter/db');
 const db = require('./client')
 
 const getAllItems = async() => {
   try {
-    const { rows } = await client.query(`
+    const { rows } = await db.query(`
     SELECT *
     FROM items`);
 
@@ -13,12 +12,12 @@ const getAllItems = async() => {
   }
 }
 
-const createItem = async({ name, description, imageUrl, price, alcoholContent, tags}) => {
+const createItem = async({ name, description, imageUrl, price, alcoholContent, category}) => {
   try {
     const { rows: [ item ] } = await db.query(`
-    INSERT INTO items(name, description, imageUrl, price, alcoholContent, tags)
+    INSERT INTO items(name, description, imageUrl, price, alcoholContent, category)
     VALUES($1, $2, $3, $4, $5, $6)
-    RETURNING *`, [name, description, imageUrl, price, alcoholContent, tags]);
+    RETURNING *`, [name, description, imageUrl, price, alcoholContent, category]);
 
     return item;
   } catch (err) {
