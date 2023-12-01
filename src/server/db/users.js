@@ -2,7 +2,7 @@ const db = require('./client')
 const bcrypt = require('bcrypt');
 const SALT_COUNT = 10;
 
-const createUser = async({ name='first last', email, password }) => {
+const createUser = async({ name, email, password }) => {
     const hashedPassword = await bcrypt.hash(password, SALT_COUNT);
     try {
         const { rows: [user ] } = await db.query(`
@@ -34,6 +34,18 @@ const getUser = async({email, password}) => {
     }
 }
 
+const getAllUsers = async () => {
+    try {
+        const { rows } = await db.query(`
+        SELECT *
+        FROM users`);
+        
+        return rows;
+    } catch (err) {
+        throw err
+    }
+}
+
 const getUserByEmail = async(email) => {
     try {
         const { rows: [ user ] } = await db.query(`
@@ -53,5 +65,6 @@ const getUserByEmail = async(email) => {
 module.exports = {
     createUser,
     getUser,
-    getUserByEmail
+    getUserByEmail,
+    getAllUsers
 };
