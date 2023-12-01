@@ -62,9 +62,33 @@ const getUserByEmail = async(email) => {
     }
 }
 
+const getAllUserData = async(userId) => {
+    try {
+        const userData = await client.query(`SELECT * FROM users WHERE userId = ${userId}`)
+        const user = userData.rows[0]
+  
+        const reviewData = await client.query(`SELECT * FROM reviews where userId=${userId}`)
+        const review = reviewData.rows
+  
+        user.reviews = review
+  
+  
+        const commentData = await client.query(`SELECT * FROM comments WHERE userId=${userId}`)
+        const comment = commentData.rows
+  
+        user.comments = comment
+
+        return user;
+    } catch (err) {
+        throw err
+    }
+}
+  
+
 module.exports = {
     createUser,
     getUser,
     getUserByEmail,
-    getAllUsers
+    getAllUsers,
+    getAllUserData
 };
