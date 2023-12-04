@@ -1,12 +1,12 @@
 const db = require('./client')
-const utils = require('utils')
+const utils = require('./utils')
 
-const createReview = async({ itemId, userId, content, rating }) => {
+const createReview = async({ item_id, user_id, content, rating }) => {
   try {
     const { rows: [ review ] } = await db.query(`
-    INSERT INTO reviews("itemId", "userId", content, rating)
+    INSERT INTO reviews(item_id, user_id, content, rating)
     VALUES($1, $2, $3, $4)
-    RETURNING *`, [itemId, userId, content, rating])
+    RETURNING *`, [item_id, user_id, content, rating])
 
     return review;
   } catch (err) {

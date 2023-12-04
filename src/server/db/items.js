@@ -13,17 +13,24 @@ const getAllItems = async() => {
   }
 }
 
-const getAllItemReviews = async(itemId) => {
+const getItem = async(id) => {
   try {
-    const itemData = await client.query(`SELECT * FROM items WHERE itemId=${itemId}`)
-    const item = itemData.rows[0]
+    const { rows: [item] } = await db.query(`
+    SELECT * FROM items WHERE id=$1`, [id]);
+    return item;
+  } catch(err) {
+      throw err
+  }
+}
 
-    const reviewData = await client.query(`SELECT * FROM reviews WHERE itemId = ${itemId}`)
-    const review = reviewData.rows
+const getAllItemReviews = async(item_id) => {
+  try {
+    const { rows } = await db.query(`
+    SELECT *
+    FROM reviews
+    WHERE item_id=$1`,[item_id]);
 
-    item.reviews = review
-
-      return item;
+      return rows;
     } catch (err) {
         throw err
     } 
@@ -52,6 +59,7 @@ const updateItem = async(id, fields = {} ) => {
       UPDATE items SET ${ setString } WHERE id=${id} RETURNING *;
       `, Object.values(fields));
     }
+    return await getItem(id)
   } catch (err) {
       throw err
   }
@@ -72,6 +80,7 @@ const deleteItem = async(id) => {
 
 module.exports = {
   getAllItems,
+  getItem,
   getAllItemReviews,
   createItem,
   updateItem,

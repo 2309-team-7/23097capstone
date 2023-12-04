@@ -34,6 +34,24 @@ const getUser = async({email, password}) => {
     }
 }
 
+const getUserById = async(id) => {
+    try {
+        const { rows: [ user ] } = await db.query(`
+        SELECT * FROM users WHERE id=${id};`);
+
+        if (!user) {
+            throw {
+                name: "UserNotFoundError",
+                message: "A user with that id does not exist"
+            }
+        }
+
+        return user;
+    } catch (err) {
+        throw err
+    }
+}
+
 const getAllUsers = async () => {
     try {
         const { rows } = await db.query(`
@@ -62,24 +80,28 @@ const getUserByEmail = async(email) => {
     }
 }
 
-const getAllUserData = async(userId) => {
+const getAllCommentsByUser = async(id) => {
     try {
-        const userData = await client.query(`SELECT * FROM users WHERE userId = ${userId}`)
-        const user = userData.rows[0]
-  
-        const reviewData = await client.query(`SELECT * FROM reviews where userId=${userId}`)
-        const review = reviewData.rows
-  
-        user.reviews = review
-  
-  
-        const commentData = await client.query(`SELECT * FROM comments WHERE userId=${userId}`)
-        const comment = commentData.rows
-  
-        user.comments = comment
+        const { rows: [userComments] } = await client.query(`
+        SELECT * FROM comments
+        WHERE user_id=$1
+        `,[id])
 
-        return user;
-    } catch (err) {
+        return userComments
+    } catch(err) {
+        throw err
+    }
+}
+
+const getAllReviewsByUser = async(id) => {
+    try {
+        const { rows: [userReviews] } = await client.query(`
+        SELECT * FROM reviews
+        WHERE user_id=$1
+        `, [id])
+
+        return userReviews
+    } catch(err) {
         throw err
     }
 }
@@ -88,7 +110,9 @@ const getAllUserData = async(userId) => {
 module.exports = {
     createUser,
     getUser,
+    getUserById,
     getUserByEmail,
     getAllUsers,
-    getAllUserData
+    getAllCommentsByUser,
+    getAllReviewsByUser
 };
