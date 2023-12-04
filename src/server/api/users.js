@@ -1,5 +1,6 @@
 const express = require('express');
 const usersRouter = express.Router();
+const { JWT_SECRET } = process.env;
 
 const {
     createUser,
@@ -25,7 +26,7 @@ usersRouter.get('/', async( req, res, next) => {
 });
 
 // GET - api/users/:id - get all comments by a user
-usersRouter.get('/:id', async(req, res, next) => {
+usersRouter.get('/comments/:id', async(req, res, next) => {
     try {
         const data = await getAllCommentsByUser(req.params.id)
         res.send(data)

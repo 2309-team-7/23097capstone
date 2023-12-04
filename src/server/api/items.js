@@ -33,8 +33,8 @@ itemsRouter.get('/:id', async(req, res, next) => {
   }
 })
 
-//GET - /api/items/reviews/:id - get all reviews for an item  **WIP**
-itemsRouter.get(':id/reviews', async(req, res, next) => {
+//GET - /api/items/reviews/:id - get all reviews for an item 
+itemsRouter.get('/reviews/:id', async(req, res, next) => {
   try {
     const reviews = await getAllItemReviews(req.params.id);
     res.send(reviews)
@@ -47,7 +47,7 @@ itemsRouter.get(':id/reviews', async(req, res, next) => {
 
 //POST - /api/items - create new item *needs admin auth functionality*
 itemsRouter.post('/', async(req, res, next) => {
-  const { name, description, imageUrl, price, alcoholContent, category } = req.body;
+  const { name, description, imageUrl, price, alcohol_content, category } = req.body;
 
   const itemData = {};
   try {
@@ -55,7 +55,7 @@ itemsRouter.post('/', async(req, res, next) => {
     itemData.description = description;
     itemData.imageUrl = imageUrl;
     itemData.price = price;
-    itemData.alcoholContent = alcoholContent;
+    itemData.alcohol_content = alcohol_content;
     itemData.category = category;
 
     const item = await createItem(itemData);
@@ -73,48 +73,32 @@ itemsRouter.post('/', async(req, res, next) => {
   }
 });
 
-//PATCH - /api/items/:id - update item
+//PATCH - /api/items/:id - update item  **WIP**
 itemsRouter.patch('/:id', async(req, res, next) => {
-  const { id } = req.params;
-  const { name, description, imageUrl, price, alcoholContent, category } = req.body;
-
-  const updatedFields = {};
-
-  if(name) {
-    updatedFields.name = name;
-  }
-  if(description) {
-    updatedFields.description = description;
-  }
-  if(imageUrl) {
-    updatedFields.imageUrl = imageUrl;
-  }
-  if(price) {
-    updatedFields.price = price;
-  }
-  if(alcoholContent) {
-    updatedFields.alcoholContent = alcoholContent;
-  }
-  if(category) {
-    updatedFields.category = category;
-  }
-
   try {
-    const originalItem = await getItem(id)
-
-    if (id === originalItem.id ) {
-    const updatedItem = await updateItem(id, updatedFields);
-    res.send({ item: updatedItem })
-    } else {
+    const { id } = req.params;
+    const currentItem = await getItem(id);
+    if(!currentItem) {
       next({
-        name: 'ErrorUpdatingItem',
-        message: 'Could not update item.'
+        name: "ItemNotFound",
+        message: "There are no items with that id."
       })
-    }
+    } else {
+      const { name, description, imageUrl, price, alcohol_content, category } = req.body;
+      const updatedItem = await updateItem({id: id, name, description, imageUrl, price, alcohol_content, category})
+      if(updatedItem) {
+        res.send(updatedItem);
+      } else {
+        next({
+          name: 'FailedToUpdate',
+          message: 'There was an error updating the item.'
+        })
+        }
+      }
     } catch({name, message}) {
       next({name, message})
   }
-})
+});
 
 //DELETE - /api/items/:id *admin*
 itemsRouter.delete('/:id', async(req, res, next) => {
@@ -133,7 +117,6 @@ itemsRouter.delete('/:id', async(req, res, next) => {
   } catch (err) {
       next(err)
   }
-})
-
+});
 
 module.exports = itemsRouter;

@@ -82,12 +82,12 @@ const getUserByEmail = async(email) => {
 
 const getAllCommentsByUser = async(id) => {
     try {
-        const { rows: [userComments] } = await client.query(`
+        const { rows: [userComments] } = await db.query(`
         SELECT * FROM comments
         WHERE user_id=$1
         `,[id])
 
-        return userComments
+        return userComments;
     } catch(err) {
         throw err
     }
@@ -95,12 +95,12 @@ const getAllCommentsByUser = async(id) => {
 
 const getAllReviewsByUser = async(id) => {
     try {
-        const { rows: [userReviews] } = await client.query(`
+        const { rows: [userReviews] } = await db.query(`
         SELECT * FROM reviews
         WHERE user_id=$1
         `, [id])
 
-        return userReviews
+        return userReviews;
     } catch(err) {
         throw err
     }
@@ -114,5 +114,5 @@ module.exports = {
     getUserByEmail,
     getAllUsers,
     getAllCommentsByUser,
-    getAllReviewsByUser
+    getAllReviewsByUser,
 };

@@ -1,6 +1,18 @@
 const db = require('./client')
 const utils = require('./utils')
 
+const getCommentById = async(id) => {
+  try {
+    const { rows: [ comment ] } = await db.query(`
+    SELECT *
+    FROM comments
+    WHERE id= $1`,[id])
+    return comment;
+  } catch (err) {
+      throw(err)
+  }
+}
+
 const getAllCommentsForReview = async(review_id) => {
   try {
     const { rows: [reviewComments] } = await db.query(`
@@ -40,20 +52,23 @@ const createComment = async({ review_id, user_id, content }) => {
   }
 }
 
-const updateComment = async(id, user_id, fields ={}) => {
-
-  const setString = Object.keys(fields).map((key, index) => `'${key}'=$${index + 1}`).join(', ');
-  if ( setString === 0) {
-    return;
-  }
+const updateComment = async({id, ...fields}) => {
   try {
-    const values = [...Object.values(fields), id, user_id];
-    const { rows: [ comment ]} = await db.query(`
-    UPDATE comments SET ${setString}, userId=$${Object.keys(fields).length + 1}
-    WHERE id=$${Object.keys(fields).length +2}
+   const commentUpdates = {};
+   for ( let column in fields) {
+    if (fields[column] !== undefined) commentUpdates[column] = fields[column];
+   }
+   let comment;
+   if( utils.dbFields(commentUpdates).insert.length > 0) {
+    const { rows } = await db.query(`
+    UPDATE comments
+    SET ${utils.dbFields(commentUpdates).insert }
+    WHERE id=${id}
     RETURNING *;
-    `, values);
-    return comment;
+    `, Object.values(commentUpdates));
+    comment = rows[0];
+   }
+   return comment;
   } catch (err) {
       throw err
   }
@@ -71,6 +86,7 @@ const deleteComment = async(id) => {
 
 
 module.exports = {
+  getCommentById,
   getAllCommentsForReview,
   getAllCommentsByUser,
   createComment,

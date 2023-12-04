@@ -16,33 +16,35 @@ const getAllItems = async() => {
 const getItem = async(id) => {
   try {
     const { rows: [item] } = await db.query(`
-    SELECT * FROM items WHERE id=$1`, [id]);
+    SELECT * 
+    FROM items 
+    WHERE id = $1`, [id]);
     return item;
   } catch(err) {
       throw err
   }
 }
 
-const getAllItemReviews = async(item_id) => {
+const getAllItemReviews = async(id) => {
   try {
-    const { rows } = await db.query(`
+    const {rows: [itemReviews] } = await db.query(`
     SELECT *
     FROM reviews
-    WHERE item_id=$1`,[item_id]);
+    WHERE item_id = $1`,[id]);
 
-      return rows;
+      return itemReviews;
     } catch (err) {
         throw err
     } 
 }
 
 
-const createItem = async({ name, description, imageUrl, price, alcoholContent, category}) => {
+const createItem = async({ name, description, imageUrl, price, alcohol_content, category}) => {
   try {
     const { rows: [ item ] } = await db.query(`
-    INSERT INTO items(name, description, imageUrl, price, alcoholContent, category)
+    INSERT INTO items(name, description, imageUrl, price, alcohol_content, category)
     VALUES($1, $2, $3, $4, $5, $6)
-    RETURNING *`, [name, description, imageUrl, price, alcoholContent, category]);
+    RETURNING *`, [name, description, imageUrl, price, alcohol_content, category]);
 
     return item;
   } catch (err) {
@@ -50,16 +52,23 @@ const createItem = async({ name, description, imageUrl, price, alcoholContent, c
   }
 }
 
-const updateItem = async(id, fields = {} ) => {
-  const setString = Object.keys(fields).map((key,index) => `'${key}'=$${index + 1}`).join(', ');
-
+const updateItem = async({id, ...fields}) => {
   try {
-    if ( setString.length > 0) {
-      await db.query(`
-      UPDATE items SET ${ setString } WHERE id=${id} RETURNING *;
-      `, Object.values(fields));
-    }
-    return await getItem(id)
+    const itemUpdates = {};
+   for ( let column in fields) {
+    if(fields[column] !== undefined) itemUpdates[column] = fields[column];
+   }
+   let item;
+   if ( utils.dbFields(itemUpdates).insert.length > 0) {
+    const { rows } = await db.query(`
+    UPDATE items
+    SET ${ utils.dbFields(itemUpdates).insert }
+    WHERE id=${id}
+    RETURNING *;
+    `, Object.values(itemUpdates));
+    item = rows[0];
+   }
+   return item;
   } catch (err) {
       throw err
   }

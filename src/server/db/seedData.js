@@ -1,8 +1,6 @@
 const db = require('./client');
 
 const { createUser,
-        getAllUsers,
-        getAllItems,
         createReview,
         createComment,
         createItem,
@@ -154,7 +152,7 @@ const createTables = async () => {
         description TEXT NOT NULL,
         imageUrl TEXT NOT NULL,
         price DECIMAL(10,2) NOT NULL,
-        alcoholContent DECIMAL(3,1),
+        alcohol_content DECIMAL(3,1),
         category VARCHAR(255) NOT NULL
       );
     `, console.log('created items table'))
@@ -203,7 +201,7 @@ const insertItems = async () => {
     console.log('Inserting items...')
     for ( const item of items) {
       await createItem({name: item.name, description: item.description, imageUrl: item.imageUrl,
-      price: item.price, alcoholContent: item.alcoholContent, category: item.category});
+      price: item.price, alcohol_content: item.alcohol_content, category: item.category});
     }
     console.log('Seed data inserted successfully.');
   } catch (error) {
