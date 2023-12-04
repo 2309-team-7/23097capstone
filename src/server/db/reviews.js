@@ -1,29 +1,49 @@
 const db = require('./client')
-const utils = require('utils')
+const utils = require('./utils')
 
-const createReview = async({ itemId, userId, content, rating }) => {
+const getReview = async(id) => {
+  try {
+    const { rows: [review] } = await db.query(`
+    SELECT * 
+    FROM reviews
+    WHERE id = $1`, [id])
+
+    return review;
+  } catch(err) {
+      throw err
+  }
+}
+
+const createReview = async({ item_id, user_id, content, rating }) => {
   try {
     const { rows: [ review ] } = await db.query(`
-    INSERT INTO reviews("itemId", "userId", content, rating)
+    INSERT INTO reviews(item_id, user_id, content, rating)
     VALUES($1, $2, $3, $4)
-    RETURNING *`, [itemId, userId, content, rating])
+    RETURNING *`, [item_id, user_id, content, rating])
 
     return review;
   } catch (err) {
       throw err;
   }
 }
-// PUT -  /api/reviews/:id
-const updateReview = async(id, fields = {}) => {
-  const setString = Object.keys(fields).map((key,index) => `'${key}'=$${index + 1}`).join(', ');
-  if (setString.length === 0) {
-    return;
-  }
+// PATCH -  /api/reviews/:id
+const updateReview = async({id, ...fields}) => {
   try {
-    const { rows: [review] } = await db.query(`
-    UPDATE reviews SET ${setString} WHERE id=${id} RETURNING *
-   `, Object.values(fields));
-    return review;
+    const reviewUpdates = {};
+   for ( let column in fields) {
+    if(fields[column] !== undefined) reviewUpdates[column] = fields[column];
+   }
+   let review;
+   if ( utils.dbFields(reviewUpdates).insert.length > 0) {
+    const { rows } = await db.query(`
+    UPDATE reviews
+    SET ${ utils.dbFields(reviewUpdates).insert }
+    WHERE id=${id}
+    RETURNING *;
+    `, Object.values(reviewUpdates));
+    review = rows[0];
+   }
+   return review;
   } catch (err) {
       throw err
   }
@@ -33,7 +53,9 @@ const updateReview = async(id, fields = {}) => {
 const deleteReview = async(id) => {
   try {
     const { rows: [review] } = await db.query(`
-      DELETE FROM reviews WHERE id=${id}`)
+      DELETE 
+      FROM reviews 
+      WHERE id=${id}`)
       return review;
   } catch (err) {
       throw err
@@ -42,6 +64,7 @@ const deleteReview = async(id) => {
 
 
 module.exports = {
+  getReview,
   createReview,
   updateReview,
   deleteReview

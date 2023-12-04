@@ -1,8 +1,6 @@
 const db = require('./client');
 
 const { createUser,
-        getAllUsers,
-        getAllItems,
         createReview,
         createComment,
         createItem,
@@ -82,20 +80,20 @@ const items = [
 
 const reviews = [
   {
-    itemId: '5',
-    userId: '1',
+    item_id: '5',
+    user_id: '1',
     content: 'If you are going to try a Japanese whiskey, you can do a lot worse than Hibiki Harmony.  It has the mellower flavors common of Japanese whiskey but brings a complex profile that even drinkers who prefer higher proofs will enjoy.',
     rating: '88'
   },
   {
-    itemId: '4',
-    userId: '5',
+    item_id: '4',
+    user_id: '5',
     content: 'Way too sweet.  After spending a preimum, I expected a premium experience.  While it has a nice, smooth flavor at first, it is then ruined by an overly strong sweetness.  Would not recommend for the price.  At least the bottle is nice.',
     rating: '45'
   },
   {
-    itemId: '4',
-    userId: '4',
+    item_id: '4',
+    user_id: '4',
     content: `'Months of searching finally at an end! This bottle won't last long when it is so easy to drink!  The strong vanilla flavor is the perfect way to treat yourself after a long day.'`,
     rating: '92'
   },
@@ -103,18 +101,18 @@ const reviews = [
 
 const comments = [
   {
-    reviewId: '1',
-    userId: '2',
+    review_id: '1',
+    user_id: '2',
     content: 'Was on the fence but now I think I will look for a bottle tomorrow.',
   },
   {
-    reviewId: '3',
-    userId: '3',
+    review_id: '3',
+    user_id: '3',
     content: 'Nice! Was looking for something for specical occasions.',
   },
   {
-    reviewId: '2',
-    userId: '2',
+    review_id: '2',
+    user_id: '2',
     content: 'Such a shame it did not live up to expectations.',
   }
 ]
@@ -154,7 +152,7 @@ const createTables = async () => {
         description TEXT NOT NULL,
         imageUrl TEXT NOT NULL,
         price DECIMAL(10,2) NOT NULL,
-        alcoholContent DECIMAL(3,1),
+        alcohol_content DECIMAL(3,1),
         category VARCHAR(255) NOT NULL
       );
     `, console.log('created items table'))
@@ -162,19 +160,19 @@ const createTables = async () => {
     await db.query(`
       CREATE TABLE reviews (
         id SERIAL PRIMARY KEY,
-        "itemId" INTEGER REFERENCES items(id),
-        "userId" INTEGER REFERENCES users(id),
+        item_Id INTEGER REFERENCES items(id),
+        user_Id INTEGER REFERENCES users(id),
         content TEXT NOT NULL,
         rating INTEGER NOT NULL,
-        UNIQUE ("itemId", "userId")
+        UNIQUE (item_Id, user_Id)
       );
     `,console.log('created reviews table'))
 
     await db.query(`
       CREATE TABLE comments (
         id SERIAL PRIMARY KEY,
-        "reviewId" INTEGER REFERENCES reviews(id),
-        "userId" INTEGER REFERENCES users(id),
+        review_Id INTEGER REFERENCES reviews(id),
+        user_Id INTEGER REFERENCES users(id),
         content TEXT NOT NULL
       );
     `, console.log('created comments table'))
@@ -203,7 +201,7 @@ const insertItems = async () => {
     console.log('Inserting items...')
     for ( const item of items) {
       await createItem({name: item.name, description: item.description, imageUrl: item.imageUrl,
-      price: item.price, alcoholContent: item.alcoholContent, category: item.category});
+      price: item.price, alcohol_content: item.alcohol_content, category: item.category});
     }
     console.log('Seed data inserted successfully.');
   } catch (error) {
@@ -215,7 +213,7 @@ const insertReviews = async () => {
 try {
   console.log('Inserting reviews...')
     for ( const review of reviews ) {
-      await createReview({itemId: review.itemId, userId: review.userId, content: review.content, rating: review.rating});
+      await createReview({item_id: review.item_id, user_id: review.user_id, content: review.content, rating: review.rating});
     } 
     console.log('Seeded data inserted successfully.')
   } catch (error) {
@@ -227,7 +225,7 @@ const insertComments = async () => {
   try {
     console.log('Inserting comments...')
     for ( const comment of comments ) {
-      await createComment({reviewId: comment.reviewId, userId: comment.userId, content: comment.content});
+      await createComment({review_id: comment.review_id, user_id: comment.user_id, content: comment.content});
     }
     console.log('Seed data inserted successfully.')
   } catch (error) {
