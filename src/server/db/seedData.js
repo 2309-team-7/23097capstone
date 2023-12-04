@@ -78,6 +78,99 @@ const items = [
     alcoholContent: '43',
     category: 'Whiskey',
   },
+  {
+    id:
+    name: 'Crown Royal Regal Apple',
+    description: 'Bright apple balanced with signature Crown Royal and spice',
+    imageUrl: 'https://www.abc.virginia.gov/library/product-images/march/crown-royal-regal-apple-whiskey.jpg',
+    price: '22.99',
+    alcoholContent: '35',
+    category: 'Whiskey',
+  },
+  {
+    id: ,
+    name: 'Titos Handmade Vodka',
+    description: 'Americas first craft vodka, Titos from Austin, Texas, has been the choice for trendy cocktailians since it hit the market in 1997. It is made from corn for a deep, rich flavor, and Abou-Ganim is a long-time fan.',
+    imageUrl: 'https://www.floppysspirits.com/media/com_eshop/products/resized/BC7EA43E-525F-4984-9E2F-CE43238541B4-450x450.png',
+    price: '19.99',
+    alcoholContent: '40',
+    category: 'Vodka',
+  },
+  {
+    id: ,
+    name: 'Barcardi Carta Blanca Rum',
+    description: 'Pure and clean, with a pleasant citrus flavour. Very smooth; no alcohol burn with a clean and smooth finish.',
+    imageUrl: 'https://d3r6kbofdnmd8.cloudfront.net/media/catalog/product/cache/image/390x390/a4e40ebdc3e371adff845072e1c73f37/1/0/102726_bacardi_carta_blanca_700.jpg',
+    price: '19.95',
+    alcoholContent: '37.5',
+    category: 'Rum',
+  }
+  {
+    id: ,
+    name: 'Captain Morgan Black Spiced',
+    description: 'A special dark spiced version of Captain Morgan, made with Caribbean rums, spices and natural flavourings, matured in oak and designed to be drunk on its own.',
+    imageUrl: 'https://scene7.samsclub.com/is/image/samsclub/0008200075792_A?$DT_PDP_Image$',
+    price: '37.95',
+    alcoholContent: '40',
+    category: 'Rum',
+  }
+  {
+    id: ,
+    name: 'Baileys Irish Cream Liqueur',
+    description: 'Category-dominating Christmas best-seller blended from cream, cocoa and Irish whiskey. Instrumental in a variety of shooters.',
+    imageUrl: 'https://scene7.samsclub.com/is/image/samsclub/0008676721002_A?$DT_PDP_Image$',
+    price: '14.95',
+    alcoholContent: '17',
+    category: 'Liqueur'
+  }
+  {
+    id:
+    name: 'Jose Cuervo Especial Reposado Tequila',
+    description: 'Jose Cuervo Especial® Gold is a golden blend of younger tequilas. The light gold spirit has a sweet aroma with pleasant agave notes. Along with its sweet, subtle agave flavor and hints of oak and vanilla, Especial Gold boasts a well-balanced, short, smooth finish.',
+    imageUrl: 'https://drinkit.com.sv/wp-content/uploads/2020/01/TEQUILA-CUERVO-ESPECIAL-ORO-750-ML.jpg',
+    price: '22.99',
+    alcoholContent: '40',
+    category: 'Tequila',
+  }
+  {
+    id:
+    name: 'Maestro Dobel Silver',
+    description: 'Maestro Dobel Silver is a double-distilled Tequila which, unusually, is not rested and is bottled straight from the still with only water added to dilute it to drinking strength. A superb, complex, cocktail ingredient.',
+    imageUrl: 'https://cdn11.bigcommerce.com/s-b0811/products/3688/images/21864/maestro-silver-tequila__55333.1658723615.480.480.jpg?c=2',
+    price: '19.95',
+    alcoholContent: '40',
+    category: 'Tequila', 
+  }
+  {
+    id:
+    name: 'Jinro Plum Soju',
+    description: 'Korea- Infused with fresh, sweet-tasting plums. Jinro Plum has become one of the most popular fruit infused Soju in Korea and represents a new twist on a Korean favorite. It is best served ice-cold, neat, or as a small pour in a chilled traditional cup.',
+    imageUrl: 'https://www.raanthai.co.uk/media/catalog/product/cache/1/image/9df78eab33525d08d6e5fb8d27136e95/j/k/jkd042lg.jpg',
+    price: '6.99',
+    alcoholContent: '13',
+    category: 'Soju',
+  }
+  {
+    id:
+    name: 'Corona Extra',
+    description: 'Some sweet malt and a bit of that signature skunkiness come through on the nose, along with a hint of citrus and green apple.',
+    imageUrl: 'https://mmv2api.s3.us-east-2.amazonaws.com/products/thumbs/IMG_4967.jpg',
+    price: '32.99',
+    alcoholContent: '4.6',
+    category: 'Beer',
+  }
+  {
+    id:
+    name: 'Modelo Especial',
+    description: 'Well-balanced taste and light hop character with a crisp, clean finish. Modelo Especial is characterized by an orange blossom honey aroma with a hint of herb. Modelo Especial contains Water, Barley Malt, Non-malted Cereals and Hops.',
+    imageUrl: 'https://produits.bienmanger.com/35131-0w470h470_Modelo_Especial_Beer_From_Mexico.jpg',
+    price: '33.99',
+    alcoholContent: '4.4',
+    category: 'Beer',
+  }
+
+  
+  
 ]
 
 const reviews = [
