@@ -1,6 +1,7 @@
 const express = require('express');
 const apiRouter = express.Router();
 const jwt = require('jsonwebtoken');
+const { JWT_SECRET } = process.env
 
 const { getUserById } = require('../db');
 
@@ -20,7 +21,7 @@ apiRouter.use(async (req, res, next) => {
     const token = auth.slice(prefix.length);
     
     try {
-      const { parsedToken } = jwt.verify(token, JWT_SECRET);
+      const { id } = jwt.verify(token, JWT_SECRET);
       // TODO - Call 'jwt.verify()' to see if the token is valid. If it is, use it to get the user's 'id'. Look up the user with their 'id' and set 'req.user'
 
       if (id) {

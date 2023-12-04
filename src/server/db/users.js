@@ -69,10 +69,11 @@ const getUserByEmail = async(email) => {
         const { rows: [ user ] } = await db.query(`
         SELECT * 
         FROM users
-        WHERE email=$1;`, [ email ]);
+        WHERE email=$1
+        `, [ email ]);
 
         if(!user) {
-            return;
+            return null;
         }
         return user;
     } catch (err) {
