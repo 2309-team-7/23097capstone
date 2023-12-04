@@ -58,8 +58,8 @@ usersRouter.post('/login', async(req, res, next) => {
         if(user) {
             const token = jwt.sign({
                 id: user.id,
-                email
-            }, process.env.JWT_SECRET, {
+                email: user.email
+            }, JWT_SECRET, {
                 expiresIn: '1w'
             });
 
@@ -101,7 +101,7 @@ usersRouter.post('/register', async(req, res, next) => {
         const token = jwt.sign({
             id: user.id,
             email
-        }, process.env.JWT_SECRET, {
+        }, JWT_SECRET, {
             expiresIn: '1w'
         });
 
