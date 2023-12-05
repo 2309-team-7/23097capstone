@@ -195,7 +195,7 @@ const items = [
     price: '4000.00',
     alcohol_content: '40',
     category: 'Cognac'
-  },
+  }
 ]
 
 const reviews = [
