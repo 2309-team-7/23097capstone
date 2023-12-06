@@ -1,10 +1,14 @@
-const express = require('express')
+const express = require('express');
 const usersRouter = express.Router();
+const { JWT_SECRET } = process.env;
 
 const {
     createUser,
     getUser,
-    getUserByEmail
+    getUserByEmail,
+    getAllUsers,
+    getAllCommentsByUser,
+    getAllReviewsByUser,
 } = require('../db');
 
 const jwt = require('jsonwebtoken')
@@ -21,6 +25,26 @@ usersRouter.get('/', async( req, res, next) => {
     }
 });
 
+// GET - api/users/:id - get all comments by a user
+usersRouter.get('/comments/:id', async(req, res, next) => {
+    try {
+        const data = await getAllCommentsByUser(req.params.id)
+        res.send(data)
+    } catch(err) {
+        next(err)
+    }
+})
+
+//GET - api/users/reviews/:id - get all reviews by user
+usersRouter.get('/reviews/:id', async(req, res, next) => {
+    try {
+        const reviews = await getAllReviewsByUser(req.params.id)
+        res.send(reviews)
+    } catch(err) {
+        next(err)
+    }
+})
+
 usersRouter.post('/login', async(req, res, next) => {
     const { email, password } = req.body;
     if(!email || !password) {
@@ -34,8 +58,8 @@ usersRouter.post('/login', async(req, res, next) => {
         if(user) {
             const token = jwt.sign({
                 id: user.id,
-                email
-            }, process.env.JWT_SECRET, {
+                email: user.email
+            }, JWT_SECRET, {
                 expiresIn: '1w'
             });
 
@@ -77,7 +101,7 @@ usersRouter.post('/register', async(req, res, next) => {
         const token = jwt.sign({
             id: user.id,
             email
-        }, process.env.JWT_SECRET, {
+        }, JWT_SECRET, {
             expiresIn: '1w'
         });
 
