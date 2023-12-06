@@ -75,6 +75,126 @@ const items = [
     price: '84.99',
     alcohol_content: '43',
     category: 'Whiskey',
+  },
+  {
+    name: 'Rémy Martin 1738 Accord Royal VSOP Cogncac',
+    description: 'Velvet blend of an oaky eaux-de-vie.  This cognac lives up to the name with a taste of opulence only royals have enjoyed.',
+    imageUrl: 'https://static-prod.remymartin.com/app/uploads/2023/10/teaser-l2-remy-martin-1738-accord-royal-buy-online-231027-461x600.jpg',
+    price: '80.00',
+    alcohol_content: '40',
+    category: 'Cognac'
+  },
+  {
+    name: 'Johnnie Walker Blue Label',
+    description: 'Only rare Scotch Whiskies with remarkable flavor get chosen for this spirit.  Only one in ten thousand barrels get chosen.  Best served neat.',
+    imageUrl: 'https://d3omj40jjfp5tk.cloudfront.net/products/5bf9a9fc1859dd1605986510/large.png',
+    price: '59.99',
+    alcohol_content: '40',
+    category: 'Whiskey'
+  },
+  {
+    name: 'Buffalo Trace',
+    description: 'Made from the corn, rye, and barely malt and distilled, aged, and bottle at the most award-winning distillery in the world.  This whiskey ages in new oak barrels until mature.',
+    imageUrl: 'https://onestopbourbons.com/wp-content/uploads/2023/03/mi-buffalo-trace-bourbon-d25aeb4cf55b74d2.jpeg',
+    price: '24.99',
+    alcohol_content: '45',
+    category: 'Bourbon'
+  },
+  {
+    name: 'Grey Goose VX Vodka',
+    description: 'Grey goose vodka mixed with a dash of cognac that adds just enough complexity.  Tastes of signature grey goose vodka with fruit and floral notes that is best enjoyed on the rocks.',
+    imageUrl: 'https://images.liquorapps.com/jp/bg/72238-Grey-Goose-VX-Premium-Vodka.jpg',
+    price: '79.99',
+    alcohol_content: '40',
+    category: 'Vodka'
+  },
+  {
+    name: 'Glenfiddich Grande Couronne 26 Year Old',
+    description: 'Matured for 26 years, with over 2 years in cognac casks that adds layers of sweet oak and brown sugar, this is the epitome of opulence.  A crown fit for the grandest of occasions.',
+    imageUrl: 'https://www.totalwine.com/dynamic/490x/media/sys_master/twmmedia/h9e/hda/14820013375518.png',
+    price: '599.00',
+    alcohol_content: '43.8',
+    category: 'Scotch'
+  },
+  {
+    name: `Maker's Mark`,
+    description: `Made with soft red winter wheat that has been aged to taste,not by time.  Find the bottle with it's signature hand-dipped red wax.`,
+    imageUrl: 'https://www.makersmark.com/sites/default/files/styles/c_20_product_hero/public/2023-07/makers_mark_0.png.webp?itok=3GyscobF',
+    price: '27.99',
+    alcohol_content: '45',
+    category: 'Bourbon'
+  },
+  {
+    name: `Jack Daniel's 10 Year Old Tennessee`,
+    description: `Jack Daniel's whiskey barrels stored in different barrel houses through the ten years gives this whiskey an intense and unique character.  The tempature variation of the different storage location combined with time gives this whiskey a whole new flavor.`,
+    imageUrl: 'https://www.reservebar.com/dw/image/v2/BJBF_PRD/on/demandware.static/-/Sites-reserveba[…]es/19954a63848c2aa58520454a7da96ed4f198d651.png?sh=630&q=80',
+    price: '81.00',
+    alcohol_content: '48.5',
+    category: 'Whiskey'
+  },
+  {
+    name: 'Eagle Rare Bourbon 10 Years Old',
+    description: 'Complex aromas and a well-integrated taste that pervades the experience.  This masterfully crafted bourbon is the only bourbon that won double gold five times at the San Francisco World Spirits Competition.',
+    imageUrl: 'https://eaglerare.com/sites/default/files/2017-06/eagle_rare_bottle_17yr_lg.png',
+    price: '30.00',
+    alcohol_content: '45',
+    category: 'Bourbon'
+  },
+  {
+    name: `Blanton's Gold Edition`,
+    description: `Created for bourbon aficionados, This seeks to bring an exceptional smoothness and complexity to the already revered Blanton brand.  Marked by honey on it's aroma and palate, this bourbon has an extremely long, enjoyable finish.`,
+    imageUrl: 'https://www.blantonsbourbon.com/cdn/shop/files/Product_Page_Gold_International_Domestic_38fea3fe-5609-4984-b9e3-f8e9aab4ec85_1080x.jpg?v=1613787518',
+    price: '249.99',
+    alcohol_content: '51.5',
+    category: 'Bourbon'
+  },
+  {
+    name: 'Don Julio Blanco',
+    description: 'The base from which all other Don Julio variants are derived.  Crisp agave flavor makes for a great ingredient in mixing. Can also be enjoyed neat or on the rocks.',
+    imageUrl: 'https://target.scene7.com/is/image/Target/GUEST_10545e0a-90d3-4f51-b903-f08b6098dab1?wid=1200&hei=1200&qlt=80&fmt=webp',
+    price: '49.99',
+    alcohol_content: '40',
+    category: 'Tequila'
+  },
+  {
+    name: 'Colonel E.H. Taylor Small Batch',
+    description: 'Handmade and aged inside century old warehouses constructed by E.H. Taylor, Jr.  Each barrel has been evaluated and selected to create a prefect blend of distinctive character.  A true sipping bourbon.',
+    imageUrl: 'https://www.buffalotracedistillery.com/our-brands/e-h-taylor-jr/e-h-taylor-jr-small-batch/_j[…]631043068049/eh-taylor-small-batch-desktop-bottle.png',
+    price: '185.00',
+    alcohol_content: '50',
+    category: 'Bourbon'
+  },
+  {
+    name: 'Lagavulin 16 Year',
+    description: 'Single Malt from Islay, Scotland.  This scotch has a rich peat character and smoke like no other.  Best enjoyed by sipping and pairs well with a cigar.',
+    imageUrl: 'https://www.cavabplus.gr/images/stories/virtuemart/product/LAGAVULIN%2016.jpg',
+    price: '104.99',
+    alcohol_content: '43',
+    category: 'Scotch'
+  },
+  {
+    name: 'Glenlivet 25',
+    description: 'Matured in traditional casks and finished in first fill Pedro Ximénez Sherry & Tronçais Oak Cognac casks, This scotch brings an indulgent richness to the iconic style of Glenlivet. ',
+    imageUrl: 'https://www.theglenlivet.com/wp-content/uploads/2022/06/25-year-old-bottle-2.png',
+    price: '500.00',
+    alcohol_content: '43',
+    category: 'Scotch'
+  },
+  {
+    name: 'WhistlePig The Boss Hog X The Commandments',
+    description: 'Taking a biblical moniker and inspired by our own land of milk and honey, this rye whiskey is aged in new American Oak before being being finished in two unorthodox barrels.  The first barrel is seasoned in an experimental spirit derived from frankincense and myrrh while the final finish is in craft mead casks.',
+    imageUrl: 'https://assets-global.website-files.com/61f27a53fd39a15d7eed0e9c/65375485165a5bc992b12e31_TheBossHog_X_PDP-BottleImage-877x1400-p-800.png',
+    price: '599.00',
+    alcohol_content: '52.9',
+    category: 'Whiskey'
+  },
+  {
+    name: 'Louis XIII',
+    description: 'The finest eaux-de-vie, made using grapes grown in Grande Champagne - the premier cru of the Cognac region.  The eaux-de-vie is aged for decades in old Limousin tierçons for decades before being bottle in hand-crafted unique decanters.',
+    imageUrl: 'https://cdn.caskers.com/catalog/product/cache/ce56bc73870585a38310c58e499d2fd4/l/o/louis-xiii-1.png',
+    price: '4000.00',
+    alcohol_content: '40',
+    category: 'Cognac'
   }
 ]
 
