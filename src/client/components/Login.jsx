@@ -1,6 +1,4 @@
 import React, { useState } from 'react';
-import Username from './Username';
-import Password from './Password';
 
 const Login = () => {
   const [username, setUsername] = useState('')
@@ -49,8 +47,6 @@ const Login = () => {
   return (
     <div>
       <h1>Test</h1>
-      <Username />
-      <Password />
     </div>
   );
 };
