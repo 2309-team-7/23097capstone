@@ -19,8 +19,8 @@ commentsRouter.get('/:id', async(req, res, next) => {
   }
 });
 
-//POST - /api/comments/ - create new comment *require login*
-commentsRouter.post('/', async(req, res, next) => {
+//POST - /api/comments/ - create new comment 
+commentsRouter.post('/', utils.requireUser, async(req, res, next) => {
   const { content } = req.body;
 
   const commentData = {};
@@ -42,8 +42,8 @@ commentsRouter.post('/', async(req, res, next) => {
     }
 });
 
-//PATCH - /api/comments/:id *require user*
-commentsRouter.patch('/:id', async(req, res, next) => {
+//PATCH - /api/comments/:id - update comments
+commentsRouter.patch('/:id', utils.requireUser, async(req, res, next) => {
   try {
     const { id } = req.params;
     const currentComment = await getCommentById(id);
@@ -69,8 +69,8 @@ commentsRouter.patch('/:id', async(req, res, next) => {
   }
 });
 
-//DELETE - /api/comments/:id *require user*
-commentsRouter.delete('/:id', async(req, res, next) => {
+//DELETE - /api/comments/:id  - Delete comment
+commentsRouter.delete('/:id', utils.requireUser, async(req, res, next) => {
   try {
     const { id } = req.params;
     const commentToDelete = await getCommentById(id);

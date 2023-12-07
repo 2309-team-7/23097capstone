@@ -37,7 +37,10 @@ const getUser = async({email, password}) => {
 const getUserById = async(id) => {
     try {
         const { rows: [ user ] } = await db.query(`
-        SELECT * FROM users WHERE id=${id};`);
+        SELECT *
+        FROM users 
+        WHERE id= $1;
+        `, [id]);
 
         if (!user) {
             throw {
@@ -46,6 +49,7 @@ const getUserById = async(id) => {
             }
         }
 
+        delete user.password;
         return user;
     } catch (err) {
         throw err
@@ -55,7 +59,7 @@ const getUserById = async(id) => {
 const getAllUsers = async () => {
     try {
         const { rows } = await db.query(`
-        SELECT name email is_admin
+        SELECT name, email, is_admin
         FROM users`);
         
         return rows;
@@ -67,9 +71,9 @@ const getAllUsers = async () => {
 const getUserByEmail = async(email) => {
     try {
         const { rows: [ user ] } = await db.query(`
-        SELECT name email is_admin 
+        SELECT email
         FROM users
-        WHERE email=$1
+        WHERE email=$1;
         `, [ email ]);
 
         if(!user) {

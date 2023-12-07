@@ -37,6 +37,12 @@ const users = [
       password: 'password123',
       is_admin: 'FALSE'
     },
+    {
+      name: 'Hello World',
+      email: 'test@example.com',
+      password: 'hunter2',
+      is_admin: 'TRUE'
+    }
     // Add more user objects as needed
 ];  
 

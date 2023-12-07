@@ -1,5 +1,6 @@
 const express = require('express');
 const usersRouter = express.Router();
+const utils = require('./utils')
 const { JWT_SECRET } = process.env;
 
 const {
@@ -13,7 +14,7 @@ const {
 
 const jwt = require('jsonwebtoken')
 
-usersRouter.get('/', async( req, res, next) => {
+usersRouter.get('/', utils.isAdmin, async( req, res, next) => {
     try {
         const users = await getAllUsers();
 
@@ -26,7 +27,7 @@ usersRouter.get('/', async( req, res, next) => {
 });
 
 // GET - api/users/:id - get all comments by a user
-usersRouter.get('/comments/:id', async(req, res, next) => {
+usersRouter.get('/comments/:id', utils.requireUser, async(req, res, next) => {
     try {
         const data = await getAllCommentsByUser(req.params.id)
         res.send(data)
@@ -36,7 +37,7 @@ usersRouter.get('/comments/:id', async(req, res, next) => {
 })
 
 //GET - api/users/reviews/:id - get all reviews by user
-usersRouter.get('/reviews/:id', async(req, res, next) => {
+usersRouter.get('/reviews/:id', utils.requireUser, async(req, res, next) => {
     try {
         const reviews = await getAllReviewsByUser(req.params.id)
         res.send(reviews)
@@ -71,7 +72,7 @@ usersRouter.post('/login', async(req, res, next) => {
         else {
             next({
                 name: 'IncorrectCredentialsError',
-                message: 'Username or password is incorrect'
+                message: 'Email or password is incorrect'
             });
         }
     } catch(err) {

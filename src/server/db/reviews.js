@@ -14,6 +14,18 @@ const getReview = async(id) => {
   }
 }
 
+const getReviewedItems = async() => {
+  try {
+    const { rows: [items] } = await db.query(`
+    SELECT DISTINCT item_id
+    FROM reviews;`)
+
+    return items
+  } catch(err) {
+      throw err
+  }
+}
+
 const createReview = async({ item_id, user_id, content, rating }) => {
   try {
     const { rows: [ review ] } = await db.query(`
@@ -65,6 +77,7 @@ const deleteReview = async(id) => {
 
 module.exports = {
   getReview,
+  getReviewedItems,
   createReview,
   updateReview,
   deleteReview
