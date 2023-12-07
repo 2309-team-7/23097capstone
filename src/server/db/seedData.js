@@ -11,26 +11,31 @@ const users = [
       name: 'Emily Johnson',
       email: 'emily@example.com',
       password: 'securepass',
+      is_admin: 'TRUE'
     },
     {
       name: 'Liu Wei',
       email: 'liu@example.com',
       password: 'strongpass',
+      is_admin: 'TRUE'
     },
     {
       name: 'Isabella García',
       email: 'bella@example.com',
       password: 'pass1234',
+      is_admin: 'FALSE'
     },
     {
       name: 'Mohammed Ahmed',
       email: 'mohammed@example.com',
       password: 'mysecretpassword',
+      is_admin: 'FALSE'
     },
     {
       name: 'John Smith',
       email: 'john@example.com',
       password: 'password123',
+      is_admin: 'FALSE'
     },
     // Add more user objects as needed
 ];  
@@ -421,7 +426,8 @@ const createTables = async () => {
         id SERIAL PRIMARY KEY,
         name VARCHAR(255) DEFAULT 'name',
         email VARCHAR(255) UNIQUE NOT NULL,
-        password VARCHAR(255) NOT NULL
+        password VARCHAR(255) NOT NULL,
+        is_admin BOOLEAN DEFAULT FALSE
       );
     `, console.log('created users table'))
 
@@ -468,7 +474,7 @@ const insertUsers = async () => {
   try {
     console.log('Inserting users...')
     for (const user of users) {
-      await createUser({name: user.name, email: user.email, password: user.password});
+      await createUser({name: user.name, email: user.email, password: user.password, is_admin: user.is_admin});
     }
     console.log('Seed data inserted successfully.');
     } catch (error) {

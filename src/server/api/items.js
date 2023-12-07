@@ -73,7 +73,7 @@ itemsRouter.post('/', async(req, res, next) => {
   }
 });
 
-//PATCH - /api/items/:id - update item  **WIP**
+//PATCH - /api/items/:id - update item 
 itemsRouter.patch('/:id', async(req, res, next) => {
   try {
     const { id } = req.params;

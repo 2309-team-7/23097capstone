@@ -8,7 +8,15 @@ function requireUser(req, res, next) {
   }
   next()
  }
+ const isAdmin = (req, res, next) => {
+  if (req.user && req.user.isAdmin) {
+    next()
+  } else {
+    res.status(403)
+  }
+ }
  
  module.exports = {
-   requireUser
+   requireUser,
+   isAdmin
  }
