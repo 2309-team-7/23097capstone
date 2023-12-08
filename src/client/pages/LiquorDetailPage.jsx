@@ -70,7 +70,7 @@ function LiquorComments({ reviewId, token }) {
         ) : (
           items?.map((item) => {
             return (
-              <li>
+              <li key={item.id}>
                 <h4>{item.title}</h4>
                 <p>{item.content}</p>
               </li>

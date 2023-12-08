@@ -4,6 +4,7 @@ const { createUser, createReview, createComment, createItem } = require("./index
 
 const users = [
   {
+    // id: 1
     name: "Emily Johnson",
     email: "emily@example.com",
     password: "securepass",
