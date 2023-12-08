@@ -1,22 +1,20 @@
-import React from "react";
 import { useState } from "react";
-import HomePage
+import reactLogo from "./assets/react.svg";
+import Login from "./components/Login";
+import AllLiquors from "./components/AllLiquors";
 
 function App() {
   const [token, setToken] = useState(0);
 
   return (
-    <BrowserRouter>
-      <div className={styles.div}>
-        <NavBar token={token} setToken={setToken} />
-
-        {token ? (
-          <PrivateRoutes token={token} />
-        ) : (
-          <PublicRoutes setToken={setToken} token={token} />
-        )}
-      </div>
-    </BrowserRouter>
+    <div className="App">
+      <h1>Boilerplate</h1>
+      <img id="comp-img" src="./computer.png"></img>
+      <p>Replace the starter code in this template with something cool</p>
+      <Login />
+      <AllLiquors />
+      <LiquorDetails />
+    </div>
   );
 }
 
@@ -27,3 +25,8 @@ function PublicRoutes({setToken, token}) {
 }
 
 export default App;
+
+
+function PublicRoutes() {}
+
+function PrivateRoutes() {}

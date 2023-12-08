@@ -26,6 +26,8 @@ const Login = () => {
             })
         });
         const result = await response.json();
+
+        console.log({result})
         setMessage(result.message);
         if(!response.ok) {
           throw(result)
