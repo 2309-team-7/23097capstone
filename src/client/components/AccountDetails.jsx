@@ -8,7 +8,7 @@ import MyComments from "./MyComments";
 import { API } from "./LiquorDetails";
 
 async function fetchMyAccount({ token }) {
-  const response = await fetch(`${API}/users/me`, {
+  const response = await fetch(`${API}/users/:id`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",

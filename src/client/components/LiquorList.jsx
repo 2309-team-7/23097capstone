@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Axios from "axios";
 
-const API = "http://localhost:3000/api/users/login";
+const API = "http://localhost:5432/2309-7-db/api";
 
 export async function fetchLiquor() {
   const response = await Axios.get(`${API}/items`);
@@ -44,7 +44,7 @@ export default function LiquorList() {
             return (
               <li key={item.id}>
                 {" "}
-                <Link to={`/${item.id}`}>
+                <Link to={`/:${item.id}`}>
                   <h3>{item.title}</h3>
                 </Link>
               </li>
