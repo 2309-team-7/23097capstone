@@ -3,7 +3,7 @@ const usersRouter = express.Router();
 const utils = require('./utils')
 const { JWT_SECRET } = process.env;
 
-const { createUser, getUser, getUserByEmail, getAllUsers, getAllCommentsByUser, getAllReviewsByUser } = require("../db");
+const { createUser, getUser, getUserById, getUserByEmail, getAllUsers, getAllCommentsByUser, getAllReviewsByUser } = require("../db");
 
 const jwt = require("jsonwebtoken");
 
@@ -19,7 +19,17 @@ usersRouter.get('/', utils.isAdmin, async( req, res, next) => {
   }
 });
 
-// GET - api/users/:id - get all comments by a user
+//GET - api/users/:id - get user data
+usersRouter.get('/:id', utils.requireUser, async(req, res, next) => {
+  try {
+    const userData = await getUserById(req.params.id)
+    res.send(userData)
+  } catch(err) {
+      next(err)
+  }
+})
+
+// GET - api/users/comments/:id - get all comments by a user
 usersRouter.get('/comments/:id', async(req, res, next) => {
     try {
         const data = await getAllCommentsByUser(req.params.id)

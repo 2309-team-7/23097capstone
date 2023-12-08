@@ -54,7 +54,7 @@ const getUserById = async (id) => {
                 message: "A user with that id does not exist"
             }
         }
-
+        delete user.password;
         return user;
     } catch (err) {
         throw err
