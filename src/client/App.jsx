@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import reactLogo from './assets/react.svg';
 import Login from './components/Login';
 
 function App() {
@@ -11,8 +10,14 @@ function App() {
         <img id='comp-img' src='./computer.png'></img>
         <p>Replace the starter code in this template with something cool</p>
         <Login />
+        
     </div>
   );
 }
 
 export default App;
+
+
+function PublicRoutes() {}
+
+function PrivateRoutes() {}
