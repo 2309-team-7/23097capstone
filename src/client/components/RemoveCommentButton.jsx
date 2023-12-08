@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { API } from "./LiquorDetails";
-export function RemoveCommentButton({ token, commentId, removeCommentById }) {
+export function RemoveCommentButton({ token, commentsId, removeCommentById }) {
   const [status, setStatus] = useState("idle");
   const deleteComment = async () => {
     if (status === "loading") return;
     try {
       setStatus("loading");
 
-      await fetch(`${API}/comments/${commentId}`, {
+      await fetch(`${API}/comments/:${commentsId}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
@@ -17,7 +17,7 @@ export function RemoveCommentButton({ token, commentId, removeCommentById }) {
           available: true,
         }),
       }).then((response) => response.json());
-      removeCommentById(commentId);
+      removeCommentById(commentsId);
       setStatus("idle");
     } catch (error) {
       setStatus("error");
