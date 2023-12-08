@@ -1,13 +1,16 @@
 import { useState, useEffect } from "react";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import LogInPage from "./pages/LogInPage";
 import MyAccountPage from "./pages/MyAccountPage";
 import RegisterPage from "./pages/RegisterPage";
 import AllLiquors from "./components/AllLiquors";
 import LiquorDetailPage from "./pages/LiquorDetailPage";
+import NavBar from "./components/Navbar";
+import styles from "./App.module.css";
 
 function App() {
-  const [token, setToken] = useState(0);
+  const [token, setToken] = useState();
 
   return (
     <BrowserRouter>
@@ -27,7 +30,7 @@ function App() {
 function PublicRoutes({ setToken, token }) {
   return (
     <Routes>
-      <Route path="/" element={<Navigate replace to="/HomePage" />} />
+      <Route path="/" element={<Navigate replace to="/login" />} />
       <Route path="/my-account" element={<Navigate replace to="/login" />} />
       <Route path="/:item_id" element={<Navigate replace to="/login" />} />
       <Route path="/register" element={<RegisterPage setToken={setToken} />} />
