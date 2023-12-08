@@ -13,7 +13,6 @@ function AllLiquors() {
   }, []);
 
   async function fetchLiquors() {
-    // grab puppies from API
 
     let API = "http://localhost:5432/2309-7-db/api/";
 
@@ -33,7 +32,7 @@ function AllLiquors() {
             <li key={item.item_id}>
               <h3>{item.name}</h3>
               <img src={item.imageUrl} />
-              <button onClick={() => navigate(`/items/${item.id}`)}>
+              <button onClick={() => navigate(`${API}/items/:${item.id}`)}>
                 Reviews
               </button>
             </li>

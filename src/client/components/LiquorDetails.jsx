@@ -5,7 +5,7 @@ import styles from "./SingleLiquor.module.css";
 export const API = "http://localhost:5432/2309-7-db/api";
 
 async function fetchLiquorById(item_id) {
-  const response = await Axios.get(`${API}/items/${item_id}`);
+  const response = await Axios.get(`${API}/items/:${item_id}`);
   return response;
 }
 export function LiquorDetails({ token, item_id }) {

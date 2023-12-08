@@ -7,7 +7,7 @@ export default function MyComments({ comments = [], token }) {
       <h3>My Comments</h3>
       <ul>
         {comments.length === 0 ? (
-          <p>Nothing checked out</p>
+          <p>No comments</p>
         ) : (
           comments.map((comment) => (
             <Comment comment={comment} token={token} key={comment.id} />
