@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 
 export const useApiHook = (url) => {
-  console.log(`http://localhost:3000/api${url}`);
   const [data, setData] = useState([]); // Assuming data is an array
   const [isLoading, setIsLoading] = useState(false); // Set initial loading state to false
   const [error, setError] = useState(null);

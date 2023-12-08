@@ -1,28 +1,22 @@
-const express = require('express');
+const express = require("express");
 const reviewsRouter = express.Router();
-const utils = require('./utils')
+const utils = require("./utils");
 const JWT_SECRET = process.env;
 
-const {
-  getReview,
-  createReview,
-  updateReview,
-  getAllCommentsForReview,
-  deleteReview
-} = require('../db')
+const { getReview, createReview, updateReview, getAllCommentsForReview, deleteReview } = require("../db");
 
 //GET - api/reviews/comments/:id
-reviewsRouter.get('/comments/:id', async(req, res, next) => {
+reviewsRouter.get("/comments/:id", async (req, res, next) => {
   try {
-    const reviewComments = await getAllCommentsForReview(req.params.id);
-    res.send(reviewComments)
+    const reviewComments = (await getAllCommentsForReview(req.params.id)) || [];
+    res.send(reviewComments);
   } catch (err) {
-      next(err)
+    next(err);
   }
 });
 
-//POST - /api/reviews/ - 
-reviewsRouter.post('/', utils.requireUser, async(req, res, next) => {
+//POST - /api/reviews/ -
+reviewsRouter.post("/", utils.requireUser, async (req, res, next) => {
   const { item_id, user_id, content, rating } = req.body;
 
   const reviewData = {};
@@ -32,66 +26,65 @@ reviewsRouter.post('/', utils.requireUser, async(req, res, next) => {
     reviewData.content = content;
     reviewData.rating = rating;
 
-    const review = await createReview(reviewData)
+    const review = await createReview(reviewData);
 
-    if(review) {
+    if (review) {
       res.send(review);
     } else {
       next({
-        name: 'ReviewCreationError',
-        message: 'There was an error creating the review.'
-      })
+        name: "ReviewCreationError",
+        message: "There was an error creating the review.",
+      });
     }
-  } catch ({name, message}) {
-      next({ name, message});
+  } catch ({ name, message }) {
+    next({ name, message });
   }
 });
 
 //PATCH - /api/reviews/:id - update review
-reviewsRouter.patch('/:id', utils.requireUser, async(req, res, next) => {
+reviewsRouter.patch("/:id", utils.requireUser, async (req, res, next) => {
   try {
     const { id } = req.params;
     const presentReview = await getReview(id);
-    if(!presentReview) {
+    if (!presentReview) {
       next({
         name: "ReviewNotFound",
-        message: "There was no review with that id."
-      })
+        message: "There was no review with that id.",
+      });
     } else {
       const { content, rating } = req.body;
-      const updatedReview = await updateReview({id: id, content, rating})
-      if(updatedReview) {
+      const updatedReview = await updateReview({ id: id, content, rating });
+      if (updatedReview) {
         res.send(updatedReview);
       } else {
         next({
-          name: 'FailedToUpdate',
-          message: 'There was an error updating your review.'
-        })
+          name: "FailedToUpdate",
+          message: "There was an error updating your review.",
+        });
       }
     }
-  } catch(err) {
-    next(err)
+  } catch (err) {
+    next(err);
   }
 });
 
-//DELETE - /api/reviews/:id 
-reviewsRouter.delete('/:id', utils.requireUser, async(req, res, next) => {
+//DELETE - /api/reviews/:id
+reviewsRouter.delete("/:id", utils.requireUser, async (req, res, next) => {
   try {
     const { id } = req.params;
     const reviewToDelete = await getReview(id);
-    if(!reviewToDelete) {
+    if (!reviewToDelete) {
       next({
-        name: 'NothingToDelete',
-        message: `No review with the Id: ${id}`
-      })
+        name: "NothingToDelete",
+        message: `No review with the Id: ${id}`,
+      });
     } else {
       const deletedReview = await deleteReview(id);
-      res.send({ success: true, ...deleteReview})
+      res.send({ success: true, ...deleteReview });
     }
   } catch (err) {
-      next(err)
+    next(err);
   }
-})
-
+});
 
 module.exports = reviewsRouter;
