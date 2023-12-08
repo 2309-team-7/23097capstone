@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Axios from "axios";
-import styles from "./SingleLiquor.module.css";
+import styles from "./LiquorDetails.module.css";
 
 export const API = "http://localhost:5432/2309-7-db/api";
 
