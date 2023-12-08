@@ -12,9 +12,7 @@ const createUser = async ({ name, email, password, is_admin }) => {
         INSERT INTO users(name, email, password, is_admin)
         VALUES($1, $2, $3, $4)
         ON CONFLICT (email) DO NOTHING
-        RETURNING *`,
-      [name, email, hashedPassword, is_admin]
-    );
+        RETURNING *`, [name, email, hashedPassword, is_admin]);
 
     return user;
   } catch (err) {
@@ -44,28 +42,28 @@ const getUser = async ({ email, password }) => {
 
 const getUserById = async (id) => {
   try {
-    const {
-      rows: [user],
-    } = await db.query(`
-        SELECT * FROM users WHERE id=${id};`);
+    const { rows: [user] } = await db.query(`
+        SELECT *
+        FROM users WHERE id = $1
+        `, [ id ]);
 
-    if (!user) {
-      throw {
-        name: "UserNotFoundError",
-        message: "A user with that id does not exist",
-      };
+        if (!user) {
+            throw {
+                name: "UserNotFoundError",
+                message: "A user with that id does not exist"
+            }
+        }
+
+        return user;
+    } catch (err) {
+        throw err
     }
-
-    return user;
-  } catch (err) {
-    throw err;
-  }
-};
+}
 
 const getAllUsers = async () => {
-  try {
-    const { rows } = await db.query(`
-        SELECT name email is_admin
+    try {
+        const { rows } = await db.query(`
+        SELECT name, email, is_admin
         FROM users`);
 
     return rows;
@@ -76,20 +74,15 @@ const getAllUsers = async () => {
 
 const getUserByEmail = async (email) => {
   try {
-    const {
-      rows: [user],
-    } = await db.query(
-      `
-        SELECT name, email, is_admin, password 
-        FROM users
-        WHERE email=$1
-        `,
-      [email]
-    );
+    const { rows: [user] } = await db.query(`
+    SELECT *
+    FROM users
+    WHERE email = $1`, [email]);
 
     if (!user) {
       return null;
     }
+    delete user.password;
     return user;
   } catch (err) {
     console.log("Error in getUserByEmail function");

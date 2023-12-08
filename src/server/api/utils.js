@@ -9,10 +9,14 @@ function requireUser(req, res, next) {
   next()
  }
  const isAdmin = (req, res, next) => {
-  if (req.user && req.user.isAdmin) {
+  if (req.user && req.user.is_admin) {
     next()
   } else {
-    res.status(403)
+    res.status(403);
+    next({
+      name: 'NotPermitted',
+      message: 'Must be an admin to perform this action.'
+    })
   }
  }
  

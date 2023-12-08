@@ -1,6 +1,6 @@
 const express = require('express');
 const reviewsRouter = express.Router();
-const { requireUser } = require('./utils')
+const utils = require('./utils')
 const JWT_SECRET = process.env;
 
 const {
@@ -21,8 +21,8 @@ reviewsRouter.get('/comments/:id', async(req, res, next) => {
   }
 });
 
-//POST - /api/reviews/ - create new review *requires user*
-reviewsRouter.post('/', async(req, res, next) => {
+//POST - /api/reviews/ - 
+reviewsRouter.post('/', utils.requireUser, async(req, res, next) => {
   const { item_id, user_id, content, rating } = req.body;
 
   const reviewData = {};
@@ -48,7 +48,7 @@ reviewsRouter.post('/', async(req, res, next) => {
 });
 
 //PATCH - /api/reviews/:id - update review
-reviewsRouter.patch('/:id', async(req, res, next) => {
+reviewsRouter.patch('/:id', utils.requireUser, async(req, res, next) => {
   try {
     const { id } = req.params;
     const presentReview = await getReview(id);
@@ -75,7 +75,7 @@ reviewsRouter.patch('/:id', async(req, res, next) => {
 });
 
 //DELETE - /api/reviews/:id 
-reviewsRouter.delete('/:id', requireUser, async(req, res, next) => {
+reviewsRouter.delete('/:id', utils.requireUser, async(req, res, next) => {
   try {
     const { id } = req.params;
     const reviewToDelete = await getReview(id);

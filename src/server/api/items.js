@@ -1,9 +1,11 @@
 const express = require('express');
 const itemsRouter = express.Router();
 const utils = require('./utils')
+const { JWT_SECRET } = process.env;
 
 const {
   getAllItems,
+  getReviewedItems,
   getItem,
   getAllItemReviews,
   createItem,
@@ -19,6 +21,16 @@ itemsRouter.get('/', async (req, res, next) => {
     const allItems = await getAllItems();
     res.send(allItems)
   } catch (err) {
+      next(err)
+  }
+})
+
+//GET - /api/items/reviewed - get reviewed items
+itemsRouter.get('/reviewed', utils.isAdmin, async(req, res, next) => {
+  try {
+    const reviewedItems = await getReviewedItems();
+    res.send(reviewedItems)
+  } catch(err) {
       next(err)
   }
 })
@@ -45,8 +57,8 @@ itemsRouter.get('/reviews/:id', async(req, res, next) => {
 
 /* POST METHODS */
 
-//POST - /api/items - create new item *needs admin auth functionality*
-itemsRouter.post('/', async(req, res, next) => {
+//POST - /api/items - create new item 
+itemsRouter.post('/', utils.isAdmin, async(req, res, next) => {
   const { name, description, imageUrl, price, alcohol_content, category } = req.body;
 
   const itemData = {};
@@ -74,7 +86,7 @@ itemsRouter.post('/', async(req, res, next) => {
 });
 
 //PATCH - /api/items/:id - update item 
-itemsRouter.patch('/:id', async(req, res, next) => {
+itemsRouter.patch('/:id', utils.isAdmin, async(req, res, next) => {
   try {
     const { id } = req.params;
     const currentItem = await getItem(id);
@@ -100,8 +112,8 @@ itemsRouter.patch('/:id', async(req, res, next) => {
   }
 });
 
-//DELETE - /api/items/:id *admin*
-itemsRouter.delete('/:id', async(req, res, next) => {
+//DELETE - /api/items/:id 
+itemsRouter.delete('/:id', utils.isAdmin, async(req, res, next) => {
   try {
     const { id } = req.params;
     const itemToDelete = await getItem(id);

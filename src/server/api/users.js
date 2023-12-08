@@ -1,14 +1,15 @@
 const express = require("express");
 const usersRouter = express.Router();
+const utils = require('./utils')
 const { JWT_SECRET } = process.env;
 
 const { createUser, getUser, getUserByEmail, getAllUsers, getAllCommentsByUser, getAllReviewsByUser } = require("../db");
 
 const jwt = require("jsonwebtoken");
 
-usersRouter.get("/", async (req, res, next) => {
-  try {
-    const users = await getAllUsers();
+usersRouter.get('/', utils.isAdmin, async( req, res, next) => {
+    try {
+        const users = await getAllUsers();
 
     res.send({
       users,
@@ -19,24 +20,24 @@ usersRouter.get("/", async (req, res, next) => {
 });
 
 // GET - api/users/:id - get all comments by a user
-usersRouter.get("/comments/:id", async (req, res, next) => {
-  try {
-    const data = await getAllCommentsByUser(req.params.id);
-    res.send(data);
-  } catch (err) {
-    next(err);
-  }
-});
+usersRouter.get('/comments/:id', async(req, res, next) => {
+    try {
+        const data = await getAllCommentsByUser(req.params.id)
+        res.send(data)
+    } catch(err) {
+        next(err)
+    }
+})
 
 //GET - api/users/reviews/:id - get all reviews by user
-usersRouter.get("/reviews/:id", async (req, res, next) => {
-  try {
-    const reviews = await getAllReviewsByUser(req.params.id);
-    res.send(reviews);
-  } catch (err) {
-    next(err);
-  }
-});
+usersRouter.get('/reviews/:id', async(req, res, next) => {
+    try {
+        const reviews = await getAllReviewsByUser(req.params.id)
+        res.send(reviews)
+    } catch(err) {
+        next(err)
+    }
+})
 
 usersRouter.post("/login", async (req, res, next) => {
   const { email, password } = req.body;
@@ -54,22 +55,22 @@ usersRouter.post("/login", async (req, res, next) => {
       const token = jwt.sign(
         {
           id: user.id,
-          email: user.email,
+          email: user.email
         },
         JWT_SECRET,
         {
-          expiresIn: "1w",
+          expiresIn: "1w"
         }
       );
 
       res.send({
         message: "Login successful!",
-        token,
+        token
       });
     } else {
       next({
         name: "IncorrectCredentialsError",
-        message: "Username or password is incorrect",
+        message: "Username or password is incorrect"
       });
     }
   } catch (err) {

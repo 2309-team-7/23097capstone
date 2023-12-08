@@ -1,4 +1,3 @@
-//helper stringify function 
 function dbFields(fields) {
   const insert = Object.keys(fields).map(
     (key, index) => `"${ key }"=$${ index + 1 }`
