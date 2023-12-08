@@ -20,7 +20,7 @@ const getReviewedItems = async() => {
     SELECT DISTINCT item_id
     FROM reviews;`)
 
-    return items
+    return [items]
   } catch(err) {
       throw err
   }
