@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { API } from "./LiquorDetails";
 
 export function PostReviewButton({ token, reviewsId }) {
   const [status, setStatus] = useState("idle");
@@ -7,7 +6,7 @@ export function PostReviewButton({ token, reviewsId }) {
     if (status === "loading") return;
     try {
       setStatus("loading");
-      const response = await fetch(`${API}/reviews/:${reviewsId}`, {
+      const response = await fetch(`http://localhost:3000/reviews/:${reviewsId}`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",

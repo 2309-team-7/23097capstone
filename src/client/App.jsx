@@ -1,13 +1,12 @@
-import { useState, useEffect } from "react";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { useState } from "react";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import styles from "./App.module.css";
+import NavBar from "./components/Navbar";
 import HomePage from "./pages/HomePage";
+import LiquorDetailPage from "./pages/LiquorDetailPage";
 import LogInPage from "./pages/LogInPage";
 import MyAccountPage from "./pages/MyAccountPage";
 import RegisterPage from "./pages/RegisterPage";
-import AllLiquors from "./components/AllLiquors";
-import LiquorDetailPage from "./pages/LiquorDetailPage";
-import NavBar from "./components/Navbar";
-import styles from "./App.module.css";
 
 function App() {
   const [token, setToken] = useState();
@@ -30,9 +29,9 @@ function App() {
 function PublicRoutes({ setToken, token }) {
   return (
     <Routes>
-      <Route path="/" element={<Navigate replace to="/login" />} />
+      <Route path="/" element={<HomePage />} />
+      <Route path="/:itemId" element={<LiquorDetailPage token={token} />} />
       <Route path="/my-account" element={<Navigate replace to="/login" />} />
-      <Route path="/:item_id" element={<Navigate replace to="/login" />} />
       <Route path="/register" element={<RegisterPage setToken={setToken} />} />
       <Route
         path="/login"
@@ -48,7 +47,7 @@ function PrivateRoutes({ token }) {
       <Route path="/login" element={<Navigate replace to="/" />} />
       <Route path="/register" element={<Navigate replace to="/" />} />
       <Route path="/" element={<HomePage />} />
-      <Route path="/:item_id" element={<LiquorDetailPage token={token} />} />
+      <Route path="/:itemId" element={<LiquorDetailPage token={token} />} />
       <Route path="/my-account" element={<MyAccountPage token={token} />} />
     </Routes>
   );

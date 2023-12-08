@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import styles from "./RegisterForm.module.css";
-import { API } from "./LiquorDetails";
 
 export default function RegisterForm({ setToken }) {
   const [firstname, setFirstname] = useState("");
@@ -18,7 +17,7 @@ export default function RegisterForm({ setToken }) {
       password,
     });
     try {
-      const response = await fetch(`${API}/users/register`, {
+      const response = await fetch(`http://localhost:3000/users/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { API } from "./LiquorDetails";
 
 export function PostCommentButton({ token, commentsId }) {
   const [status, setStatus] = useState("idle");
@@ -7,7 +6,7 @@ export function PostCommentButton({ token, commentsId }) {
     if (status === "loading") return;
     try {
       setStatus("loading");
-      const response = await fetch(`${API}/comments/:${commentsId}`, {
+      const response = await fetch(`http://localhost:3000/comments/:${commentsId}`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",

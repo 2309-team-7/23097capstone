@@ -1,39 +1,26 @@
-import React, { useState, useEffect } from "react";
-import Axios from "axios";
+import React from "react";
 import styles from "./LiquorDetails.module.css";
 
-export const API = "http://localhost:5432/2309-7-db/api";
+import { useApiHook } from "../hooks/useApi";
 
-async function fetchLiquorById(item_id) {
-  const response = await Axios.get(`${API}/items/:${item_id}`);
-  return response;
-}
-export function LiquorDetails({ token, item_id }) {
-  const [itemData, setLiquor] = useState();
+export function LiquorDetails({ token, itemId }) {
+  const { data: item, isLoading, error } = useApiHook(`/items/${itemId}`);
 
-  useEffect(() => {
-    async function getAndSetLiquor() {
-      try {
-        const response = await fetchLiquorById(item_id);
-        setLiquor(response.data.item);
-      } catch (error) {
-        console.log(error);
-      }
-    }
-    getAndSetLiquor();
-  }, []);
+  if (isLoading) return <h3>Loading...</h3>;
+  if (error) return <h3>Error: {error.message}</h3>;
 
-  if (!itemData) {
-    return <h1>Loading...</h1>;
+  if (!item) {
+    return <h3>Item not found!</h3>;
   }
+
   return (
     <div className={styles.div}>
-      <img className={styles.img} src={itemData.imageUrl} />
-      <h1>{itemData.name}</h1>
-      <p className={styles.p}>{itemData.description}</p>
-      <p className={styles.p}>${itemData.price}</p>
-      <p className={styles.p}>ABV: {itemData.alcohol_content}</p>
-      <p className={styles.p}>Category: {itemData.category}</p>
+      <img className={styles.img} src={item.imageUrl} />
+      <h1>{item.name}</h1>
+      <p className={styles.p}>{item.description}</p>
+      <p className={styles.p}>${item.price}</p>
+      <p className={styles.p}>ABV: {item.alcohol_content}</p>
+      <p className={styles.p}>Category: {item.category}</p>
     </div>
   );
 }

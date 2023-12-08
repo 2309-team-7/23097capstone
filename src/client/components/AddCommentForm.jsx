@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import styles from "./RegisterForm.module.css";
-import { API } from "./LiquorDetails";
 
 export default function AddCommentForm({ setToken }) {
   const [comment, addComment] = useState("");
@@ -12,7 +11,7 @@ export default function AddCommentForm({ setToken }) {
       comment,
     });
     try {
-      const response = await fetch(`${API}/comments`, {
+      const response = await fetch(`http://localhost:3000/comments`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ comment }),

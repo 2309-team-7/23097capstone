@@ -1,14 +1,14 @@
-import React from "react";
-import { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 import styles from "./AccountDetails.module.css";
 
-import MyReviews from "./MyReviews";
 import MyComments from "./MyComments";
-import { API } from "./LiquorDetails";
+import MyReviews from "./MyReviews";
+
+
 
 async function fetchMyAccount({ token }) {
-  const response = await fetch(`${API}/users/:id`, {
+  const response = await fetch(`http://localhost:3000/users/:id`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",

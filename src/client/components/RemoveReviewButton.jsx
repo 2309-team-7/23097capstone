@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { API } from "./LiquorDetails";
 export function RemoveReviewButton({ token, reviewsId, removeReviewById }) {
   const [status, setStatus] = useState("idle");
   const deleteComment = async () => {
@@ -7,7 +6,7 @@ export function RemoveReviewButton({ token, reviewsId, removeReviewById }) {
     try {
       setStatus("loading");
 
-      await fetch(`${API}/reviews/:${reviewsId}`, {
+      await fetch(`http://localhost:3000/reviews/:${reviewsId}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",

@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import styles from "./LoginForm.module.css";
-import { API } from "./LiquorDetails";
 
 export default function LoginForm({ setToken }) {
   const [email, setEmail] = useState("");
@@ -10,7 +9,7 @@ export default function LoginForm({ setToken }) {
   async function handleSubmit(event) {
     event.preventDefault();
     try {
-      await fetch(`${API}/users/login`, {
+      await fetch(`http://localhost:3000/api/users/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
