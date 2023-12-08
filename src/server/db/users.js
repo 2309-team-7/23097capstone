@@ -44,7 +44,8 @@ const getUserById = async (id) => {
   try {
     const { rows: [user] } = await db.query(`
         SELECT *
-        FROM users WHERE id = $1
+        FROM users
+        WHERE id = $1;
         `, [ id ]);
 
         if (!user) {
@@ -77,12 +78,12 @@ const getUserByEmail = async (email) => {
     const { rows: [user] } = await db.query(`
     SELECT *
     FROM users
-    WHERE email = $1`, [email]);
+    WHERE email=$1;`, [ email ]);
 
     if (!user) {
-      return null;
+      return;
     }
-    delete user.password;
+
     return user;
   } catch (err) {
     console.log("Error in getUserByEmail function");

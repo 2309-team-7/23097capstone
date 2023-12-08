@@ -39,7 +39,7 @@ usersRouter.get('/reviews/:id', async(req, res, next) => {
     }
 })
 
-usersRouter.post("/login", async (req, res, next) => {
+usersRouter.post('/login', async (req, res, next) => {
   const { email, password } = req.body;
   if (!email || !password) {
     console.log("Missing Credentials");
@@ -55,7 +55,7 @@ usersRouter.post("/login", async (req, res, next) => {
       const token = jwt.sign(
         {
           id: user.id,
-          email: user.email
+          email
         },
         JWT_SECRET,
         {
@@ -79,7 +79,7 @@ usersRouter.post("/login", async (req, res, next) => {
   }
 });
 
-usersRouter.post("/register", async (req, res, next) => {
+usersRouter.post('/register', async (req, res, next) => {
   const { name, email, password } = req.body;
 
   try {

@@ -16,7 +16,7 @@ const getReview = async(id) => {
 
 const getReviewedItems = async() => {
   try {
-    const { rows: [items] } = await db.query(`
+    const { rows: items } = await db.query(`
     SELECT DISTINCT item_id
     FROM reviews;`)
 
