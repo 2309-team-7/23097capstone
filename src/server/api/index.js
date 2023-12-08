@@ -58,7 +58,7 @@ const commentsRouter = require('./comments');
 apiRouter.use('/comments', commentsRouter);
 
 apiRouter.use((err, req, res, next) => {
-    res.status(500).send(err)
+    res.status(res.statusCode ? res.statusCode : 500).send(err)
   })
 
 module.exports = apiRouter;
