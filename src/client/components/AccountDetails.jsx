@@ -1,0 +1,77 @@
+import React from "react";
+import { useState, useEffect } from "react";
+
+import styles from "./AccountDetails.module.css";
+
+import MyReviews from "./MyReviews";
+import MyComments from "./MyComments";
+import { API } from "./LiquorDetails";
+
+async function fetchMyAccount({ token }) {
+  const response = await fetch(`${API}/users/me`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  const result = await response.json();
+  return result;
+}
+
+export default function AccountDetails({ token }) {
+  const [accountDetails, setAccountDetails] = useState();
+  const removeReviewById = (reviewId) => {
+    setAccountDetails((accountDetails) => {
+      return {
+        ...accountDetails,
+        reviews: accountDetails.reviews.filter(
+          (review) => review.id !== reviewId
+        ),
+      };
+    });
+  };
+  const removeCommentById = (commentId) => {
+    setAccountDetails((accountDetails) => {
+      return {
+        ...accountDetails,
+        comments: accountDetails.comments.filter(
+          (comment) => comment.id !== commentId
+        ),
+      };
+    });
+  };
+
+  useEffect(() => {
+    async function getAccountDetails() {
+      try {
+        const account = await fetchMyAccount({ token });
+        setAccountDetails(account);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    getAccountDetails();
+  }, []);
+
+  if (!accountDetails) {
+    return <h1>Loading...</h1>;
+  }
+
+  return (
+    <div className={styles.div}>
+      <h1>{`${accountDetails.firstname} ${accountDetails.lastname}`}</h1>
+      <h3>{`Email: ${accountDetails.email}`}</h3>
+      <MyReviews
+        reviews={accountDetails.reviews}
+        token={token}
+        removeReviewById={removeReviewById}
+      />{" "}
+      <MyComments
+        comments={accountDetails.comments}
+        token={token}
+        removeCommentById={removeCommentById}
+      />
+    </div>
+  );
+}

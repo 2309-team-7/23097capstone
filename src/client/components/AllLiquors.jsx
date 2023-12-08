@@ -33,7 +33,7 @@ function AllLiquors() {
             <li key={item.item_id}>
               <h3>{item.name}</h3>
               <img src={item.imageUrl} />
-              <button onClick={() => navigate(`/reviews/${item.id}`)}>
+              <button onClick={() => navigate(`/items/${item.id}`)}>
                 Reviews
               </button>
             </li>
