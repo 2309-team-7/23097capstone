@@ -2,12 +2,10 @@ import React from "react";
 import { useApiHook } from "../hooks/useApi";
 import { LiquorComments } from "./LiquorComments";
 
-export function LiquorReviews({ itemId, token }) {
-  const {
-    data: items,
-    isLoading,
-    error,
-  } = useApiHook(`/items/reviews/${itemId}`);
+export function LiquorReviews({ reviewId, token }) {
+  const { reviews, isLoading, error } = useApiHook(
+    `/items/reviews/${reviewId}`
+  );
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -21,18 +19,17 @@ export function LiquorReviews({ itemId, token }) {
     <div>
       <ul>
         <h3>Reviews</h3>
-        {items.length === 0 ? (
+        {reviews.length === 0 ? (
           <li>No reviews yet</li>
         ) : (
-          items.map((item) => {
+          reviews.map((review) => {
             return (
               <li>
-                <h4>{item.title}</h4>
-                <p>{item.content}</p>
+                <h4>{review.content}</h4>
                 <LiquorComments
-                  itemId={itemId}
+                  commentId={comments.id}
                   token={token}
-                  reviewId={item.id}
+                  reviewId={reviews.id}
                 />
               </li>
             );

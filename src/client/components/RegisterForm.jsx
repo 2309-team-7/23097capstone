@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styles from "./RegisterForm.module.css";
-
+import { useApiHook } from "../hooks/useApi";
 export default function RegisterForm({ setToken }) {
   const [firstname, setFirstname] = useState("");
   const [lastname, setLastname] = useState("");

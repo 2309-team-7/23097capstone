@@ -1,6 +1,7 @@
 import boozeBuddyLogo from "../assets/boozeBuddyLogo.png";
 import { Link } from "react-router-dom";
 import styles from "./Navbar.module.css";
+import { AuthButton } from "./AuthButton";
 
 export default function NavBar({ token, setToken }) {
   return (
@@ -16,21 +17,5 @@ export default function NavBar({ token, setToken }) {
         </li>
       </ul>
     </nav>
-  );
-}
-
-function AuthButton({ token, setToken }) {
-  if (!token) {
-    return (
-      <li className={styles.li}>
-        <Link to="/login">Login</Link>
-      </li>
-    );
-  }
-
-  return (
-    <li className={styles.li} onClick={() => setToken(null)}>
-      <a href="#">Log out</a>
-    </li>
   );
 }

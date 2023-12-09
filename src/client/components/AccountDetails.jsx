@@ -5,8 +5,6 @@ import styles from "./AccountDetails.module.css";
 import MyComments from "./MyComments";
 import MyReviews from "./MyReviews";
 
-
-
 async function fetchMyAccount({ token }) {
   const response = await fetch(`http://localhost:3000/users/:id`, {
     method: "GET",

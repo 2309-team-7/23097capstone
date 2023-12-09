@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { Comment } from "./Comment";
-
+import { useApiHook } from "../hooks/useApi";
 export default function MyComments({ comments = [], token }) {
   return (
     <div>

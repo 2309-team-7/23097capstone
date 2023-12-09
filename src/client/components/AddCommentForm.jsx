@@ -1,8 +1,10 @@
 import React, { useState } from "react";
-import styles from "./RegisterForm.module.css";
+import styles from "./AddCommentForm.module.css";
+
+const API = "localhost:3000/api";
 
 export default function AddCommentForm({ setToken }) {
-  const [comment, addComment] = useState("");
+  const [comment, setComment] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
   const [error, setError] = useState(null);
   async function handleSubmit(event) {
@@ -11,19 +13,18 @@ export default function AddCommentForm({ setToken }) {
       comment,
     });
     try {
-      const response = await fetch(`http://localhost:3000/comments`, {
+      const response = await fetch(`${API}/reviews/createComment`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ comment }),
+        body: JSON.stringify({
+          review: comment,
+        }),
       });
       const result = await response.json();
-      console.log("Comment: ", result);
+      console.log("Comment Post: ", result);
       setToken(result.token);
       setSuccessMessage(result.message);
-      addComment("");
-      setLastname("");
-      setEmail("");
-      setPassword("");
+      setComment("");
     } catch (error) {
       setError(error.message);
     }
@@ -33,11 +34,11 @@ export default function AddCommentForm({ setToken }) {
       {successMessage && <p>{successMessage}</p>}
       {error && <p>{error}</p>}
       <form className={styles.form} onSubmit={handleSubmit}>
-        <label>Comment:</label>
+        <label>Comment</label>
         <input
           className={styles.input}
           value={comment}
-          onChange={(event) => addComment(event.target.value)}
+          onChange={(event) => setComment(event.target.value)}
         />
         <button className={styles.button} type="submit">
           Submit

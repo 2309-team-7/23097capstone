@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import Axios from "axios";
-
+import { useApiHook } from "../hooks/useApi";
 import { useNavigate } from "react-router-dom";
 
 function AllLiquors() {
@@ -13,7 +13,6 @@ function AllLiquors() {
   }, []);
 
   async function fetchLiquors() {
-
     let API = "http://localhost:5432/2309-7-db/api/";
 
     try {

@@ -1,12 +1,10 @@
 import React from "react";
 import { useApiHook } from "../hooks/useApi";
 
-export function LiquorComments({ reviewId, token }) {
-  const {
-    data: items,
-    isLoading,
-    error,
-  } = useApiHook(`/reviews/comments/${reviewId}`);
+export function LiquorComments({ commentId, token }) {
+  const { comments, isLoading, error } = useApiHook(
+    `/reviews/comments/${commentId}`
+  );
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -20,10 +18,10 @@ export function LiquorComments({ reviewId, token }) {
     <div>
       <ul>
         <h3>Comments</h3>
-        {items.length === 0 ? (
+        {comments.length === 0 ? (
           <li>No comments yet</li>
         ) : (
-          items?.map((item) => {
+          comments?.map((item) => {
             return (
               <li key={item.id}>
                 <h4>{item.title}</h4>

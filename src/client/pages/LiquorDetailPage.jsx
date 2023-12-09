@@ -1,8 +1,9 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import { LiquorDetails } from "../components/LiquorDetails";
-import Page from "../components/Page";
 import { LiquorReviews } from "../components/LiquorReviews";
+import { LiquorComments } from "../components/LiquorComments";
+import Page from "../components/Page";
 
 export default function LiquorDetailPage({ token }) {
   let { itemId } = useParams();
@@ -13,6 +14,7 @@ export default function LiquorDetailPage({ token }) {
     <Page>
       <LiquorDetails token={token} itemId={itemId} />
       <LiquorReviews itemId={itemId} token={token} />
+      <LiquorComments />
     </Page>
   );
 }
