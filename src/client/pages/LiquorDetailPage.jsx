@@ -5,16 +5,14 @@ import { LiquorReviews } from "../components/LiquorReviews";
 import { LiquorComments } from "../components/LiquorComments";
 import Page from "../components/Page";
 
-export default function LiquorDetailPage({ token }) {
-  let { itemId } = useParams();
+export default function LiquorDetailPage() {
+  let { id } = useParams();
 
-  console.log({ itemId });
+  console.log({ id });
 
   return (
     <Page>
-      <LiquorDetails token={token} itemId={itemId} />
-      <LiquorReviews itemId={itemId} token={token} />
-      <LiquorComments />
+      <LiquorDetails />
     </Page>
   );
 }

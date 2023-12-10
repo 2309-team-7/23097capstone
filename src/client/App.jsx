@@ -30,7 +30,7 @@ function PublicRoutes({ setToken, token }) {
   return (
     <Routes>
       <Route path="/" element={<HomePage />} />
-      <Route path="/:itemId" element={<LiquorDetailPage token={token} />} />
+      <Route path="/:id" element={<LiquorDetailPage />} />
       <Route path="/my-account" element={<Navigate replace to="/login" />} />
       <Route path="/register" element={<RegisterPage setToken={setToken} />} />
       <Route

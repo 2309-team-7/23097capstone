@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { Review } from "./Review";
-import { useApiHook } from "../hooks/useApi";
+
 export default function MyReviews({ reviews = [], token }) {
   return (
     <div>

@@ -5,7 +5,7 @@ import { RemoveReviewButton } from "./RemoveReviewButton";
 export function Review({ review, token, removeReviewById }) {
   return (
     <li className={styles.li}>
-      <p>{review}</p>
+      <p>{review.content}</p>
       <RemoveReviewButton
         token={token}
         reviewId={review.id}

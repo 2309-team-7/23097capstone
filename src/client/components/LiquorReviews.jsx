@@ -3,9 +3,11 @@ import { useApiHook } from "../hooks/useApi";
 import { LiquorComments } from "./LiquorComments";
 
 export function LiquorReviews({ reviewId, token }) {
-  const { reviews, isLoading, error } = useApiHook(
-    `/items/reviews/${reviewId}`
-  );
+  const {
+    reviews: reviews,
+    isLoading,
+    error,
+  } = useApiHook(`/items/reviews/${reviewId}`);
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -26,11 +28,15 @@ export function LiquorReviews({ reviewId, token }) {
             return (
               <li>
                 <h4>{review.content}</h4>
-                <LiquorComments
-                  commentId={comments.id}
-                  token={token}
-                  reviewId={reviews.id}
-                />
+                <ul>
+                  <li>
+                    <LiquorComments
+                      commentId={comment.id}
+                      token={token}
+                      reviewId={review.id}
+                    />
+                  </li>
+                </ul>
               </li>
             );
           })

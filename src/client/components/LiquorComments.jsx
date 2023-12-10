@@ -21,11 +21,11 @@ export function LiquorComments({ commentId, token }) {
         {comments.length === 0 ? (
           <li>No comments yet</li>
         ) : (
-          comments?.map((item) => {
+          comments?.map((comment) => {
             return (
-              <li key={item.id}>
-                <h4>{item.title}</h4>
-                <p>{item.content}</p>
+              <li key={comment.id}>
+                <h4>{comment.title}</h4>
+                <p>{comment.content}</p>
               </li>
             );
           })
