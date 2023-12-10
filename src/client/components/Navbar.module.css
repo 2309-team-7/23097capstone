@@ -1,0 +1,17 @@
+.nav {
+  padding-left: 16px;
+  display: flex;
+  align-items: center;
+  background-color: orange;
+}
+
+.ul {
+  padding-left: 32px;
+  display: flex;
+  align-items: center;
+  list-style-type: none;
+}
+
+.li {
+  padding-left: 16px;
+}

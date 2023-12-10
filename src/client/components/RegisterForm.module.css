@@ -1,0 +1,23 @@
+.div {
+  border-radius: 16px;
+  background-color: white;
+  padding: 32px;
+  display: inline-block;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
+.input {
+  margin: 8px 0;
+}
+
+.button {
+  margin: 8px 0;
+}
+
+.a {
+  margin: 8px 0;
+}
