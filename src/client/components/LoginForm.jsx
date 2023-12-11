@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import styles from "./LoginForm.module.css";
-import { useApiHook } from "../hooks/useApi";
-export default function LoginForm({ setToken }) {
+export default function LoginForm({ setToken, setUser }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -23,6 +22,7 @@ export default function LoginForm({ setToken }) {
         .then((result) => {
           console.log(result);
           setToken(result.token);
+          setUser(result.user);
         });
     } catch (error) {}
   }
@@ -56,9 +56,9 @@ export default function LoginForm({ setToken }) {
           Submit
         </button>
         <button>
-        <Link className={styles.a} to="/register">
-          Register
-        </Link>
+          <Link className={styles.a} to="/register">
+            Register
+          </Link>
         </button>
       </form>
     </div>

@@ -16,7 +16,7 @@ const getAllItems = async () => {
 const getItem = async (id) => {
   try {
     const {
-      rows: [item]
+      rows: [item],
     } = await db.query(
       `
     SELECT * 
@@ -90,6 +90,7 @@ const updateItem = async ({ id, ...fields }) => {
 };
 
 const deleteItem = async (id) => {
+  // @TODO: cascade deletes!
   try {
     const {
       rows: [item],
@@ -97,7 +98,31 @@ const deleteItem = async (id) => {
     DELETE FROM items WHERE id = ${id} RETURNING *;`);
     return item;
   } catch (err) {
+    console.log(err);
     throw err;
+    //     error: update or delete on table "items" violates foreign key constraint "reviews_item_id_fkey" on table "reviews"
+    //     at C:\Users\Sean\source\repos\23097capstone\node_modules\pg\lib\client.js:526:17
+    //     at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    //     at async deleteItem (C:\Users\Sean\source\repos\23097capstone\src\server\db\items.js:96:9)
+    //     at async C:\Users\Sean\source\repos\23097capstone\src\server\api\items.js:120:7 {
+    //   length: 271,
+    //   severity: 'ERROR',
+    //   code: '23503',
+    //   detail: 'Key (id)=(2) is still referenced from table "reviews".',
+    //   hint: undefined,
+    //   position: undefined,
+    //   internalPosition: undefined,
+    //   internalQuery: undefined,
+    //   where: undefined,
+    //   schema: 'public',
+    //   table: 'reviews',
+    //   column: undefined,
+    //   dataType: undefined,
+    //   constraint: 'reviews_item_id_fkey',
+    //   file: 'ri_triggers.c',
+    //   line: '2609',
+    //   routine: 'ri_ReportViolation'
+    // }
   }
 };
 

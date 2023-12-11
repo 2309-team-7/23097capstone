@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-export const useApiHook = (url) => {
+export const useApiHook = (url, token) => {
   const [data, setData] = useState([]); // Assuming data is an array
   const [isLoading, setIsLoading] = useState(false); // Set initial loading state to false
   const [error, setError] = useState(null);
@@ -15,7 +15,17 @@ export const useApiHook = (url) => {
         setIsLoading(true); // Set loading to true right before fetching data
       }
       try {
-        const response = await fetch(`http://localhost:3000/api${url}`, { signal });
+        const response = await fetch(`http://localhost:3000/api${url}`, {
+          headers: token
+            ? {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+              }
+            : {
+                "Content-Type": "application/json",
+              },
+          signal,
+        });
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }

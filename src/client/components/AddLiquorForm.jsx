@@ -21,16 +21,18 @@ export default function AddLiquorForm({ setToken }) {
       category,
     });
     try {
-      const response = await fetch(`http://localhost:3000/items/`, {
+      const response = await fetch(`http://localhost:3000/api/items`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          name,
-          description,
-          imageurl,
-          price,
-          alcohol_content,
-          category,
+          item: {
+            name,
+            description,
+            imageurl,
+            price,
+            alcohol_content,
+            category,
+          },
         }),
       });
       const result = await response.json();
@@ -53,25 +55,11 @@ export default function AddLiquorForm({ setToken }) {
       {error && <p>{error}</p>}
       <form className={styles.form} onSubmit={handleSubmit}>
         <label>Name:</label>
-        <input
-          className={styles.input}
-          value={name}
-          onChange={(event) => setName(event.target.value)}
-        />
+        <input className={styles.input} value={name} onChange={(event) => setName(event.target.value)} />
         <label>Description:</label>
-        <input
-          className={styles.input}
-          value={description}
-          onChange={(event) => setDescription(event.target.value)}
-        />
+        <input className={styles.input} value={description} onChange={(event) => setDescription(event.target.value)} />
         <label>imageUrl:</label>
-        <input
-          className={styles.input}
-          required
-          type="url"
-          value={imageurl}
-          onChange={(event) => setImageUrl(event.target.value)}
-        />
+        <input className={styles.input} required type="url" value={imageurl} onChange={(event) => setImageUrl(event.target.value)} />
         <label>Price:</label>
         <input
           className={styles.input}

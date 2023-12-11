@@ -33,11 +33,17 @@
 //     </div>
 //   );
 // }
+import { Fragment, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useApiHook } from "../hooks/useApi";
 import { LiquorReviews } from "./LiquorReviews";
+import { RemoveLiquorButton } from "./RemoveLiquorButton";
+import { UpdateLiquorForm } from "./UpdateLiquorForm";
 
-function LiquorDetails({ token = "" }) {
+function LiquorDetails({ token = "", user }) {
+  console.log({ user });
+  const [mode, setMode] = useState("view");
+
   const { itemId } = useParams();
 
   const { data: item, isLoading, error } = useApiHook(`/items/${itemId}`);
@@ -54,8 +60,31 @@ function LiquorDetails({ token = "" }) {
     <div className="details">
       {item.id ? (
         <div className="single-puppy">
-          <h2>{item.name}</h2>
-          <LiquorReviews liquorId={item.id} token={token} />
+          {!user?.is_admin ? (
+            <Fragment>
+              <h2>{item.name}</h2>
+              <LiquorReviews liquorId={item.id} token={token} />
+            </Fragment>
+          ) : mode === "view" ? (
+            <Fragment>
+              <h2>{item.name}</h2>
+              <button onClick={() => setMode("edit")}>Edit</button>
+              <RemoveLiquorButton token={token} liquorId={item.id} />
+              <LiquorReviews liquorId={item.id} token={token} />
+            </Fragment>
+          ) : (
+            <UpdateLiquorForm
+              token={token}
+              liquorId={item.id}
+              setMode={setMode}
+              liquorName={item.name}
+              liquorDescription={item.description}
+              liquorImageUrl={item.imageurl}
+              liquorPrice={item.price}
+              liquorAlcoholContent={item.alcohol_content}
+              liquorCategory={item.category}
+            />
+          )}
         </div>
       ) : (
         <h1>No puppy was found with id: "{itemId}". Try again.</h1>

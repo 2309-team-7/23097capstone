@@ -90,8 +90,8 @@ itemsRouter.patch("/:id", utils.isAdmin, async (req, res, next) => {
         message: "There are no items with that id.",
       });
     } else {
-      const { name, description, imageUrl, price, alcohol_content, category } = req.body;
-      const updatedItem = await updateItem({ id: id, name, description, imageUrl, price, alcohol_content, category });
+      const { item } = req.body;
+      const updatedItem = await updateItem(item);
       if (updatedItem) {
         res.send(updatedItem);
       } else {
@@ -117,8 +117,8 @@ itemsRouter.delete("/:id", utils.isAdmin, async (req, res, next) => {
         message: `No item wth ID: ${id}`,
       });
     } else {
-      const deletedItem = await deleteItem(id);
-      res.send({ success: true, ...deleteItem });
+      await deleteItem(id);
+      res.send({ success: true });
     }
   } catch (err) {
     next(err);
