@@ -55,9 +55,11 @@ export default function LoginForm({ setToken }) {
         <button type="submit" className={styles.button}>
           Submit
         </button>
+        <button>
         <Link className={styles.a} to="/register">
           Register
         </Link>
+        </button>
       </form>
     </div>
   );
