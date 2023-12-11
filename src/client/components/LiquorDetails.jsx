@@ -41,7 +41,6 @@ import { RemoveLiquorButton } from "./RemoveLiquorButton";
 import { UpdateLiquorForm } from "./UpdateLiquorForm";
 
 function LiquorDetails({ token = "", user }) {
-  console.log({ user });
   const [mode, setMode] = useState("view");
 
   const { itemId } = useParams();

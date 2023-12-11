@@ -10,6 +10,7 @@ export function Review({ review, token, removeReviewById }) {
       {mode === "view" ? (
         <Fragment>
           <h4>{review.content}</h4>
+          <UserDetails />
           <button onClick={() => setMode("edit")}>Edit</button>
         </Fragment>
       ) : (
@@ -29,4 +30,8 @@ export function Review({ review, token, removeReviewById }) {
       </ul>
     </li>
   );
+}
+
+function UserDetails() {
+  return <p>User Details</p>;
 }
