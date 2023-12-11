@@ -6,7 +6,7 @@ export function RemoveReviewButton({ token, reviewsId, removeReviewById }) {
     try {
       setStatus("loading");
 
-      await fetch(`http://localhost:3000/reviews/:${reviewsId}`, {
+      await fetch(`http://localhost:3000/reviews/:${id}}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",

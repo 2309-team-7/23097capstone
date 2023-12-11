@@ -7,7 +7,7 @@ import LiquorDetailPage from "./pages/LiquorDetailPage";
 import LogInPage from "./pages/LogInPage";
 import MyAccountPage from "./pages/MyAccountPage";
 import RegisterPage from "./pages/RegisterPage";
-
+import AddLiquorPage from "./pages/AddLiquorPage";
 function App() {
   const [token, setToken] = useState();
 
@@ -49,6 +49,7 @@ function PrivateRoutes({ token }) {
       <Route path="/" element={<HomePage />} />
       <Route path="/:itemId" element={<LiquorDetailPage token={token} />} />
       <Route path="/my-account" element={<MyAccountPage token={token} />} />
+      <Route path="/addliquor" element={<AddLiquorPage token={token} />} />
     </Routes>
   );
 }

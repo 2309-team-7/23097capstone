@@ -3,7 +3,7 @@ import PageHeader from "../components/PageHeader";
 import Page from "../components/Page";
 import AddLiquorForm from "../components/AddLiquorForm";
 
-export default function RegisterPage({ setToken }) {
+export default function AddLiquorPage({ setToken }) {
   return (
     <Page>
       <PageHeader title="Add Liquor" />

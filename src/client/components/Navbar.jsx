@@ -9,17 +9,22 @@ export default function NavBar({ token, setToken }) {
       <img id="logo-image" src={boozeBuddyLogo} />
       <ul className={styles.ul}>
         <button>
-        <li className={styles.li}>
-          <Link to="/">Home</Link>
-        </li>
+          <li className={styles.li}>
+            <Link to="/">Home</Link>
+          </li>
         </button>
         <button>
-        <AuthButton token={token} setToken={setToken} />
+          <AuthButton token={token} setToken={setToken} />
         </button>
         <button>
-        <li className={styles.li}>
-          <Link to="/my-account">My Account</Link>
-        </li>
+          <li className={styles.li}>
+            <Link to="/my-account">My Account</Link>
+          </li>
+        </button>
+        <button>
+          <li className={styles.li}>
+            <Link to="/addliquor">AddLiquor</Link>
+          </li>
         </button>
       </ul>
     </nav>

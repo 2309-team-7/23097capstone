@@ -13,7 +13,7 @@ export default function AddCommentForm({ setToken }) {
       comment,
     });
     try {
-      const response = await fetch(`${API}/reviews/createComment`, {
+      const response = await fetch(`${API}/comments/createComment`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

@@ -48,10 +48,10 @@ function LiquorDetails() {
   }, []);
 
   async function fetchSingleLiquor() {
-    let API = "http://localhost:3000/api/";
+    let API = "http://localhost:3000/api";
 
     try {
-      const { data } = await axios.get(`${API}items/${id}`);
+      const { data } = await axios.get(`${API}/items/${id}`);
       console.log(data);
       setItem(data);
     } catch (err) {
