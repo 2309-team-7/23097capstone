@@ -1,90 +1,84 @@
-const express = require('express');
+const express = require("express");
 const commentsRouter = express.Router();
-const utils = require('./utils')
+const utils = require("./utils");
 
-const {
-  getCommentById,
-  createComment,
-  updateComment,
-  deleteComment
-} = require('../db')
+const { getCommentById, createComment, updateComment, deleteComment } = require("../db");
 
 //GET - /api/comments/:id - get comment by Id
-commentsRouter.get('/:id', async(req, res, next) => {
+commentsRouter.get("/:id", async (req, res, next) => {
   try {
     const currentComment = await getCommentById(req.params.id);
-    res.send(currentComment)
-  } catch(err) {
-      next(err)
+    res.send(currentComment);
+  } catch (err) {
+    next(err);
   }
 });
 
-//POST - /api/comments/ - create new comment 
-commentsRouter.post('/', utils.requireUser, async(req, res, next) => {
-  const { content } = req.body;
+//POST - /api/comments/ - create new comment
+commentsRouter.post("/", utils.requireUser, async (req, res, next) => {
+  const { comment } = req.body;
 
-  const commentData = {};
   try {
-    commentData.content = content;
+    comment.user_id = req.user.id;
 
-    const comment = await createComment(commentData);
+    const result = await createComment(comment);
 
-    if(comment) {
-      res.send(comment);
+    if (result) {
+      res.send(result);
     } else {
       next({
-        name: 'FailedToCreateComment',
-        message: 'Error creating comment.'
-      })
+        name: "FailedToCreateComment",
+        message: "Error creating comment.",
+      });
     }
-    } catch ({name, message}) {
-        next({name, message})
-    }
+  } catch ({ name, message }) {
+    next({ name, message });
+  }
 });
 
 //PATCH - /api/comments/:id - update comments
-commentsRouter.patch('/:id', utils.requireUser, async(req, res, next) => {
+commentsRouter.patch("/:id", utils.requireUser, async (req, res, next) => {
   try {
     const { id } = req.params;
     const currentComment = await getCommentById(id);
-    if(!currentComment) {
+    if (!currentComment) {
       next({
         name: "CommentNotFound",
-        message: "There are no comments with that id."
-      })
+        message: "There are no comments with that id.",
+      });
     } else {
-      const { content } = req.body;
-      const updatedComment = await updateComment({id: id, content})
-      if(updatedComment) {
+      const { comment } = req.body;
+      const updatedComment = await updateComment(comment);
+      if (updatedComment) {
         res.send(updatedComment);
       } else {
         next({
-          name: 'FailedToUpdate',
-          message: 'There was an error updating the comment.'
-        })
+          name: "FailedToUpdate",
+          message: "There was an error updating the comment.",
+        });
       }
     }
-  } catch({name, message}) {
-    next({name, message})
+  } catch ({ name, message }) {
+    next({ name, message });
   }
 });
 
 //DELETE - /api/comments/:id  - Delete comment
-commentsRouter.delete('/:id', utils.requireUser, async(req, res, next) => {
+commentsRouter.delete("/:id", utils.requireUser, async (req, res, next) => {
   try {
     const { id } = req.params;
     const commentToDelete = await getCommentById(id);
-    if(!commentToDelete) {
+    if (!commentToDelete) {
       next({
-        name: 'Not Found',
-        message: 'No comment with that Id.'
-      })
+        name: "Not Found",
+        message: "No comment with that Id.",
+      });
     } else {
-      const deletedComment = await deleteComment(id);
-      res.send({success: true, ...deleteComment})
+      await deleteComment(id);
+      res.send({ success: true });
     }
   } catch (err) {
-      next(err)
+    next(err);
   }
 });
 

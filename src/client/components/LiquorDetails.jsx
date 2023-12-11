@@ -33,42 +33,32 @@
 //     </div>
 //   );
 // }
-import { useState, useEffect } from "react";
-import axios from "axios";
-import { useApiHook } from "../hooks/useApi";
 import { useParams } from "react-router-dom";
+import { useApiHook } from "../hooks/useApi";
+import { LiquorReviews } from "./LiquorReviews";
 
-function LiquorDetails() {
-  const [item, setItem] = useState({});
+function LiquorDetails({ token = "" }) {
+  const { itemId } = useParams();
 
-  const { id } = useParams();
+  const { data: item, isLoading, error } = useApiHook(`/items/${itemId}`);
 
-  useEffect(() => {
-    fetchSingleLiquor();
-  }, []);
-
-  async function fetchSingleLiquor() {
-    let API = "http://localhost:3000/api";
-
-    try {
-      const { data } = await axios.get(`${API}/items/${id}`);
-      console.log(data);
-      setItem(data);
-    } catch (err) {
-      console.error(err.message);
-    }
+  if (isLoading) {
+    return <h1>Loading...</h1>;
   }
 
-  // console.log(item);
+  if (error) {
+    return <h1>Error: {error.message}</h1>;
+  }
 
   return (
     <div className="details">
       {item.id ? (
         <div className="single-puppy">
           <h2>{item.name}</h2>
+          <LiquorReviews liquorId={item.id} token={token} />
         </div>
       ) : (
-        <h1>No puppy was found with id: "{id}". Try again.</h1>
+        <h1>No puppy was found with id: "{itemId}". Try again.</h1>
       )}
     </div>
   );
