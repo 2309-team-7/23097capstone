@@ -78,6 +78,7 @@ const updateReview = async ({ id, ...fields }) => {
 // DELETE - /api/reviews/:id
 const deleteReview = async (id) => {
   console.log("deleting");
+  // @TODO: delete the review
   // you need to cascasde the delete to the comments table!!! See error below
   try {
     const {
