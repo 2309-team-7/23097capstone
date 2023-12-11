@@ -16,3 +16,57 @@
 }
 
 /* Add more styling for other elements if needed */
+
+/* Form styling needs cards added */
+
+.login-form {
+  display: grid;
+  justify-content: center;
+  grid-template-columns: 250px;
+  padding: 10px;
+}
+
+.signup-form {
+  display: grid;
+  justify-content: center;
+  grid-template-columns: 250px;
+  padding: 10px;
+}
+
+.form-item {
+  display: grid;
+  justify-content: center;
+  grid-template-columns: 200px;
+  padding: 10px;
+}
+
+.form-button {
+  display: grid;
+  justify-content: center;
+}
+
+.form-header {
+  display: grid;
+  justify-content: center;
+}
+
+/*The following styling is the baseline for the navbar */
+
+#navbar {
+  display: flex;
+  justify-content: center;
+}
+
+#title {
+  display: flex;
+  justify-content: center;
+}
+#top-container {
+  padding-top: 5px;
+}
+
+.navlink {
+  display: flex;
+  padding-left: 10px;
+  padding-bottom: 20px;
+}

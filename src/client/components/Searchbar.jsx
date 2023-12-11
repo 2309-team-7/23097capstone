@@ -1,6 +1,6 @@
 import React from "react";
 
-const API = ""
+const API = "http://localhost:3000/api"
 
 export async function fetchItems() {
     const response = await Axios.get(`${API}/items`);
@@ -50,7 +50,7 @@ export async function fetchItems() {
               })}
             </>
           ) : (
-            <h3>No Books Found!</h3>
+            <h3>No Booze Found!</h3>
           )}
         </ul>
       );

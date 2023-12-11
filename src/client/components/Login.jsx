@@ -1,54 +1,53 @@
 import React, { useState } from 'react';
 
-const Login = () => {
-  const [username, setUsername] = useState('')
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [message, setMessage] = useState('');
+export default function Login(props) {
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+  const [successMessage, setSuccessMessage] = useState("")
+  const [error, setError] = useState(null)
 
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value);
-  };
-
-  const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
-  };
-
-  const login = async() => {
-    try {
-        const response = await fetch('http://localhost:3000/api/users/login', {
-            method: 'POST',
-            headers: {
-                'Content-Type' : 'application/json'
-            }, 
-            body: JSON.stringify({
-                email,
-                password
-            })
-        });
-        const result = await response.json();
-        setMessage(result.message);
-        if(!response.ok) {
-          throw(result)
-        }
-        setUsername('')
-        setEmail('');
-        setPassword('');
-    } catch (err) {
-        console.error(`${err.name}: ${err.message}`);
-    }
+  async function handleLogin(e) {
+      e.preventDefault()
+      try {
+          const response = await fetch(
+              "http://localhost:3000/api/users/login", //Double check API endpoint here
+              {
+                  method: "POST",
+                  headers: {
+                      "Content-Type": "application/json",
+                  },
+                  body: JSON.stringify({
+                      email,
+                      password,
+                  })
+              }
+          );
+          const result = await response.json()
+          console.log("Login Result ", result)
+          props.setToken(result.token)
+          setSuccessMessage(result.message)
+      } catch(error) {
+          setError(error.message)
+          console.log(error)
+      }
   }
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    login();
-  };
-
   return (
-    <div>
-      <h1>Test</h1>
-    </div>
-  );
-};
-
-export default Login;
+      <div className = "login-form">
+          <h2 className = "form-header">Login</h2>
+          {successMessage && <p>{successMessage}</p>}
+          {error && <p>{error}</p>}
+          <form>
+              <label className = "form-item">
+                  Email
+                  <input type = "email" value = {email} onChange={(e) => setEmail(e.target.value)} />
+              </label>
+              <label className = "form-item">
+                  Password
+                  <input type = "password" value = {password} onChange={(e) => setPassword(e.target.value)} />
+              </label>
+              <button className = "form-button" onClick = {handleLogin}>Login</button>
+          </form>
+      </div>
+  )
+}
