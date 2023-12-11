@@ -1,0 +1,17 @@
+/* .liqour-container {
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+    background-color: D9D9D9;
+}
+
+.liqour-container > li {
+margin: 10px;
+border: 3px solid black;
+border-radius: 4%;
+}
+
+.liqour-container > li .img {
+    max-width: 200px;
+}
+*/

@@ -1,4 +1,4 @@
-import boozeBuddyLogo from "../assets/boozeBuddyLogo.png";
+import boozeBuddyLogo from "../assets/BoozeBuddyLogo.png";
 import { Link } from "react-router-dom";
 import styles from "./Navbar.module.css";
 import { AuthButton } from "./AuthButton";
