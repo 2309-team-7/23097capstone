@@ -1,0 +1,27 @@
+.div {
+  border-radius: 16px;
+  background-color:white;
+  background-image: url('https://media.istockphoto.com/id/485031014/vector/whisky-glass.jpg?s=612x612&w=0&k=20&c=vsnVuq5NH_98t6hbh8dRyfNCIKakzL1CCAUkx8pBejc=');
+  background-size: contain;
+  padding: 32px;
+  display: inline-block;
+  position: relative;
+  left: 45%;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
+.input {
+  margin: 8px 0;
+}
+
+.button {
+  margin: 8px 0;
+}
+
+.a {
+  margin: 8px 0;
+}

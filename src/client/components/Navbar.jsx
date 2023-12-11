@@ -1,29 +1,27 @@
-import "./components.css";
+import boozeBuddyLogo from "../assets/BoozeBuddyLogo.png";
+import { Link } from "react-router-dom";
+import styles from "./Navbar.module.css";
+import { AuthButton } from "./AuthButton";
 
-const Navs = () => {
+export default function NavBar({ token, setToken }) {
   return (
-    <div className={styles.navs}>
-      <div className={styles.frame}>
-        <img className={styles.vectorIcon} alt="" src="/vector.svg" />
-        <div className={styles.searchBox}>
-          <img className={styles.icon} alt="" src="/-.svg" />
-          <div className={styles.searchForAnythingContainer}>
-            <span className={styles.search}>{`Search `}</span>
-            <span className={styles.forAnything}>for anything</span>
-          </div>
-        </div>
-      </div>
-      <div className={styles.navLinks}>
-        <div className={styles.home}>Home</div>
-        <div className={styles.accountWrapper}>
-          <div className={styles.home}>Account</div>
-        </div>
-        <div className={styles.home}>Login</div>
-        <div className={styles.home}>Signup</div>
-        <div className={styles.home}>Logout</div>
-      </div>
-    </div>
+    <nav className={styles.nav}>
+      <img id="logo-image" src={boozeBuddyLogo} />
+      <ul className={styles.ul}>
+        <button>
+        <li className={styles.li}>
+          <Link to="/">Home</Link>
+        </li>
+        </button>
+        <button>
+        <AuthButton token={token} setToken={setToken} />
+        </button>
+        <button>
+        <li className={styles.li}>
+          <Link to="/my-account">My Account</Link>
+        </li>
+        </button>
+      </ul>
+    </nav>
   );
-};
-
-export default Navs;
+}

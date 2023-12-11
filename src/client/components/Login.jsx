@@ -1,12 +1,9 @@
-import React, { useState } from 'react';
-import Username from './Username';
-import Password from './Password';
-
+import React, { useState } from "react";
+import { useApiHook } from "../hooks/useApi";
 const Login = () => {
-  const [username, setUsername] = useState('')
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [message, setMessage] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [message, setMessage] = useState("");
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -16,30 +13,31 @@ const Login = () => {
     setPassword(e.target.value);
   };
 
-  const login = async() => {
+  const login = async () => {
     try {
-        const response = await fetch('http://localhost:3000/api/users/login', {
-            method: 'POST',
-            headers: {
-                'Content-Type' : 'application/json'
-            }, 
-            body: JSON.stringify({
-                email,
-                password
-            })
-        });
-        const result = await response.json();
-        setMessage(result.message);
-        if(!response.ok) {
-          throw(result)
-        }
-        setUsername('')
-        setEmail('');
-        setPassword('');
+      const response = await fetch("http://localhost:5432/2309-7-db/api", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email,
+          password,
+        }),
+      });
+      const result = await response.json();
+
+      console.log({ result });
+      setMessage(result.message);
+      if (!response.ok) {
+        throw result;
+      }
+      setEmail("");
+      setPassword("");
     } catch (err) {
-        console.error(`${err.name}: ${err.message}`);
+      console.error(`${err.name}: ${err.message}`);
     }
-  }
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -48,8 +46,31 @@ const Login = () => {
 
   return (
     <div>
-      <Username />
-      <Password />
+      <h2>Login</h2>
+      <form onSubmit={handleSubmit}>
+        <div>
+          <label htmlFor="email">Email:</label>
+          <input
+            type="email"
+            id="email"
+            value={email}
+            onChange={handleEmailChange}
+            required
+          />
+        </div>
+        <div>
+          <label htmlFor="password">Password:</label>
+          <input
+            type="password"
+            id="password"
+            value={password}
+            onChange={handlePasswordChange}
+            required
+          />
+        </div>
+        <button type="submit">Login</button>
+      </form>
+      <p>{message}</p>
     </div>
   );
 };

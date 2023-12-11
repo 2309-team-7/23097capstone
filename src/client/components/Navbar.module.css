@@ -1,0 +1,23 @@
+.nav {
+  padding-left: 16px;
+  display: flex;
+  align-items: center;
+  background-color: #667EEA;
+}
+
+.ul {
+  padding-left: 32px;
+  display: flex;
+  align-items: center;
+  list-style-type: none;
+  
+}
+
+.li {
+  padding-left: 16px;
+  background-color: whitesmoke;
+  border:3px #D9D9D9;
+  padding: 5px;
+  margin: 5px;
+  border-radius: 20%;
+}
