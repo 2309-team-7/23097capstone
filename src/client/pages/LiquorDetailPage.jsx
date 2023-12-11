@@ -1,6 +1,6 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import { LiquorDetails } from "../components/LiquorDetails";
+import LiquorDetails from "../components/LiquorDetails";
 import { LiquorReviews } from "../components/LiquorReviews";
 import { LiquorComments } from "../components/LiquorComments";
 import Page from "../components/Page";
@@ -12,7 +12,7 @@ export default function LiquorDetailPage() {
 
   return (
     <Page>
-      <LiquorDetails />
+      <LiquorDetails id={id} />
     </Page>
   );
 }

@@ -16,7 +16,7 @@ const getAllItems = async () => {
 const getItem = async (id) => {
   try {
     const {
-      rows: [item],
+      rows: [item]
     } = await db.query(
       `
     SELECT * 
