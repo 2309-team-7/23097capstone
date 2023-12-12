@@ -27,6 +27,11 @@ function LiquorDetails({ token = "", user }) {
           {!user?.is_admin ? (
             <Fragment>
               <h2>{item.name}</h2>
+              <img id="liqpic" src={item.imageurl} />
+              <h4>{item.description}</h4>
+              <h4>${item.price}</h4>
+              <h4>{item.alcohol_content}</h4>
+              <h4>{item.category}</h4>
               <LiquorReviews liquorId={item.id} token={token} />
             </Fragment>
           ) : mode === "view" ? (

@@ -13,9 +13,21 @@ export function Comment({ comment, token, removeCommentById }) {
           <button onClick={() => setMode("edit")}>Edit</button>
         </Fragment>
       ) : (
-        <UpdateCommentForm commentId={comment.id} token={token} setMode={setMode} commentContent={comment.content} />
+        <UpdateCommentForm
+          commentId={comment.id}
+          token={token}
+          setMode={setMode}
+          commentContent={comment.content}
+        />
       )}
-      <RemoveCommentButton token={token} commentId={comment.id} removeCommentById={removeCommentById} />
+      <RemoveCommentButton
+        token={token}
+        commentId={comment.id}
+        removeCommentById={removeCommentById}
+      />
     </li>
   );
+}
+function CommentUserDetails() {
+  return <p>User Details</p>;
 }
