@@ -427,6 +427,54 @@ const reviews = [
     content: `'Months of searching finally at an end! This bottle won't last long when it is so easy to drink!  The strong vanilla flavor is the perfect way to treat yourself after a long day.'`,
     rating: "92",
   },
+  {
+    item_id: "7",
+    user_id: "6",
+    content: "The go to for my friend group when there is a house party or an event.  Can pick up a handle for cheap and you are good to go no matter how many people there are.  Nothing beat's this value for a decent vodka.",
+    rating: "85"
+  },
+  {
+    item_id: "10",
+    user_id: "1",
+    content: "Sometimes you just need a drink in the morning and a delicious way to go about it is to spike some coffee with Bailey's.  A tried and true combo for those really rough days when you need it.",
+    rating: "80"
+  },
+  {
+    item_id: "12",
+    user_id: "2",
+    content: "My go to drink after a long day of work.  Drinking it neat is good but drinking it ice-cold is the way to go.  When it's ice-cold it goes down even easier for a smooth drink that makes it dangerous despite it's lower alcohol content.  Highly recommended but drink responsibly.",
+    rating: "88"
+  },
+  {
+    item_id: "15",
+    user_id: "3",
+    content: "I thought I would always dislike fireball after having tried it some years before but now I see the light.  Going on a ski trip up on the mountains in the freezing cold created the perfect environment where fireball truly shined.  I am now a believer that spirits just need the right place and mood to truly shine.",
+    rating: "86"
+  },
+  {
+    item_id: "16",
+    user_id: "4",
+    content: "If you are drinking cider than no one does it better than Angry Orchard.  It's a good choice for a casual outing to build a buzz while being tasty and refreshing. Also a good option for lighter drinkers who still want to drink but not too much.",
+    rating: "77"
+  },
+  {
+    item_id: "18",
+    user_id: "6",
+    content: "This is the first of the more expensive wines I have tried and the difference in quality from 10 dollar everyday bottles is apparent.  Breathing in the wine gives a rich, fruity aroma that is not to overpowering.  Drinking it went even better with the a full taste of the cherries that were ever present when smelling it.  Not an everyday bottle but a nice one to splurge on when there is an occasion for it. ",
+    rating: "82"
+  },
+  {
+    item_id: "21",
+    user_id: "6",
+    content: "This drink and those like it forever changed the game.  Gone are the days of drinking crappy beers when these are everywhere.  While not the best tasting seltzer on the market, they raised bar and gave plenty of options.",
+    rating: "75"
+  },
+  {
+    item_id: "22",
+    user_id: "5",
+    content: "Probably the best cognac around this price point on the market.  Drinks smooth when served neat or on the rocks but also good when mixing.  When I think of cognac the first thing I think of is Hennessy VS.",
+    rating: "82"
+  },
 ];
 
 const comments = [
