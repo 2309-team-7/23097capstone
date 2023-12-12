@@ -1,34 +1,52 @@
 import React, { useState } from "react";
 import styles from "./AddCommentForm.module.css";
 
-const API = "localhost:3000/api";
+const API = "http://localhost:3000/api";
 
-export default function AddCommentForm({ setToken }) {
-  const [comment, setComment] = useState("");
+export function AddCommentForm({ token, reviewId }) {
+  //
+  // comments are attached to review by ID
+  // needs: reivewId, token, userId
+  const [comment, setComment] = useState({
+    review_id: reviewId,
+    content: "",
+  });
+
   const [successMessage, setSuccessMessage] = useState("");
   const [error, setError] = useState(null);
   async function handleSubmit(event) {
     event.preventDefault();
-    console.log({
-      comment,
-    });
+
+    if (!token) {
+      setError("You must be logged in to comment");
+    }
+    if (!comment.content) {
+      setError("You must enter a comment");
+    }
+
     try {
-      const response = await fetch(`${API}/reviews/createComment`, {
+      setError(null);
+      const response = await fetch(`${API}/comments`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
         body: JSON.stringify({
-          review: comment,
+          comment,
         }),
       });
       const result = await response.json();
       console.log("Comment Post: ", result);
-      setToken(result.token);
       setSuccessMessage(result.message);
-      setComment("");
+      setComment((comment) => {
+        return {
+          ...comment,
+          content: "",
+        };
+      });
     } catch (error) {
       setError(error.message);
     }
   }
+
   return (
     <div className={styles.div}>
       {successMessage && <p>{successMessage}</p>}
@@ -36,9 +54,16 @@ export default function AddCommentForm({ setToken }) {
       <form className={styles.form} onSubmit={handleSubmit}>
         <label>Comment</label>
         <input
+          value={comment.content}
           className={styles.input}
-          value={comment}
-          onChange={(event) => setComment(event.target.value)}
+          onChange={(event) =>
+            setComment((comment) => {
+              return {
+                ...comment,
+                content: event.target.value,
+              };
+            })
+          }
         />
         <button className={styles.button} type="submit">
           Submit

@@ -22,10 +22,9 @@ const getAllCommentsForReview = async (review_id) => {
   try {
     const { rows } = await db.query(
       `
-    SELECT *
-    FROM comments
-    WHERE review_id = $1`,
-      [review_id]
+    SELECT reviews.id,users.name,comments.content
+    FROM reviews, users, comments
+    WHERE reviews.id = $1 AND users.id = comments.user_id;`,[review_id]
     );
 
     return rows;
@@ -38,7 +37,7 @@ const getAllCommentsByUser = async (user_id) => {
   try {
     const { rows } = await db.query(
       `
-    SELECT *
+    SELECT comments.content
     FROM comments
     WHERE user_id = $1`,
       [user_id]

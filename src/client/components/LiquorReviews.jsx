@@ -1,13 +1,24 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useApiHook } from "../hooks/useApi";
-import { LiquorComments } from "./LiquorComments";
+import AddReviewForm from "./AddReviewForm";
+import { Review } from "./Review";
 
-export function LiquorReviews({ reviewId, token }) {
-  const {
-    reviews: reviews,
-    isLoading,
-    error,
-  } = useApiHook(`/items/reviews/${reviewId}`);
+export function LiquorReviews({ liquorId, token }) {
+  const { data, isLoading, error } = useApiHook(`/items/reviews/${liquorId}`);
+
+  const [reviews, setReviews] = useState([]);
+
+  useEffect(() => {
+    if (data) {
+      setReviews(data);
+    }
+  }, [data]);
+
+  const removeReviewById = (id) => {
+    setReviews((reviews) => {
+      return reviews.filter((review) => review.id !== id);
+    });
+  };
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -25,23 +36,11 @@ export function LiquorReviews({ reviewId, token }) {
           <li>No reviews yet</li>
         ) : (
           reviews.map((review) => {
-            return (
-              <li>
-                <h4>{review.content}</h4>
-                <ul>
-                  <li>
-                    <LiquorComments
-                      commentId={comment.id}
-                      token={token}
-                      reviewId={review.id}
-                    />
-                  </li>
-                </ul>
-              </li>
-            );
+            return <Review key={review.id} review={review} token={token} removeReviewById={removeReviewById} />;
           })
         )}
       </ul>
+      <AddReviewForm token={token} itemId={liquorId} />
     </div>
   );
 }
