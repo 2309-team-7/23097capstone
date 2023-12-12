@@ -34,9 +34,9 @@ const getAllItemReviews = async (id) => {
   try {
     const { rows } = await db.query(
       `
-    SELECT *
-    FROM reviews
-    WHERE item_id = $1`,
+    SELECT items.id, users.name, reviews.content, reviews.rating
+    FROM items, users, reviews
+    WHERE items.id = $1 AND users.id = reviews.user_id;`,
       [id]
     );
 

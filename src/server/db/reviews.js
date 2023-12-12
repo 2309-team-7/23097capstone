@@ -78,8 +78,6 @@ const updateReview = async ({ id, ...fields }) => {
 // DELETE - /api/reviews/:id
 const deleteReview = async (id) => {
   console.log("deleting");
-  // @TODO: delete the review
-  // you need to cascasde the delete to the comments table!!! See error below
   try {
     const {
       rows: [review],
@@ -91,31 +89,7 @@ const deleteReview = async (id) => {
     return review;
   } catch (err) {
     console.log({ err });
-    //     {
-    //   err: error: update or delete on table "reviews" violates foreign key constraint "comments_review_id_fkey" on table "comments"
-    //       at C:\Users\Sean\source\repos\23097capstone\node_modules\pg\lib\client.js:526:17
-    //       at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
-    //       at async deleteReview (C:\Users\Sean\source\repos\23097capstone\src\server\db\reviews.js:84:9)
-    //       at async C:\Users\Sean\source\repos\23097capstone\src\server\api\reviews.js:80:29 {
-    //     length: 283,
-    //     severity: 'ERROR',
-    //     code: '23503',
-    //     detail: 'Key (id)=(10) is still referenced from table "comments".',
-    //     hint: undefined,
-    //     position: undefined,
-    //     internalPosition: undefined,
-    //     internalQuery: undefined,
-    //     where: undefined,
-    //     schema: 'public',
-    //     table: 'comments',
-    //     column: undefined,
-    //     dataType: undefined,
-    //     constraint: 'comments_review_id_fkey',
-    //     file: 'ri_triggers.c',
-    //     line: '2609',
-    //     routine: 'ri_ReportViolation'
-    //   }
-    // }
+ 
     throw err;
   }
 };
