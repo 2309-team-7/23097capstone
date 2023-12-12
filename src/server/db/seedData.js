@@ -545,8 +545,8 @@ const createTables = async () => {
       `
       CREATE TABLE reviews (
         id SERIAL PRIMARY KEY,
-        item_Id INTEGER REFERENCES items(id),
-        user_Id INTEGER REFERENCES users(id),
+        item_Id INTEGER REFERENCES items(id) ON DELETE CASCADE,
+        user_Id INTEGER REFERENCES users(id) ON DELETE CASCADE,
         content TEXT NOT NULL,
         rating INTEGER NOT NULL,
         UNIQUE (item_Id, user_Id)
@@ -559,8 +559,8 @@ const createTables = async () => {
       `
       CREATE TABLE comments (
         id SERIAL PRIMARY KEY,
-        review_Id INTEGER REFERENCES reviews(id),
-        user_Id INTEGER REFERENCES users(id),
+        review_Id INTEGER REFERENCES reviews(id) ON DELETE CASCADE,
+        user_Id INTEGER REFERENCES users(id) ON DELETE CASCADE,
         content TEXT NOT NULL
       );
     `,
