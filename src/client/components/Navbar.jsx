@@ -7,7 +7,7 @@ import styles from "./Navbar.module.css";
 export default function NavBar({ token, setToken, user, setUser }) {
   return (
     <nav className={styles.nav}>
-      <img id="logo-image" src={boozeBuddyLogo} />
+      <img className={styles.logoImage} src={boozeBuddyLogo} />
       <ul className={styles.ul}>
         <button>
           <li className={styles.li}>
