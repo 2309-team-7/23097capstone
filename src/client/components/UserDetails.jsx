@@ -5,12 +5,12 @@ import { LiquorReviews } from "./LiquorReviews";
 import { RemoveLiquorButton } from "./RemoveLiquorButton";
 import { UpdateLiquorForm } from "./UpdateLiquorForm";
 
-function LiquorDetails({ token = "", user }) {
+function UserDetails({ token = "", user }) {
   const [mode, setMode] = useState("view");
 
-  const { itemId } = useParams();
+  const { itemId: userId } = useParams();
 
-  const { data: item, isLoading, error } = useApiHook(`/items/${itemId}`);
+  const { data: user, isLoading, error } = useApiHook(`/users/${userId}`);
 
   if (isLoading) {
     return <h1>Loading...</h1>;
@@ -22,39 +22,39 @@ function LiquorDetails({ token = "", user }) {
 
   return (
     <div className="details">
-      {item.id ? (
-        <div className="single-liquor">
+      {user.id ? (
+        <div className="single-user">
           {!user?.is_admin ? (
             <Fragment>
-              <h2>{item.name}</h2>
-              <LiquorReviews liquorId={item.id} token={token} />
+              <h2>{user.name}</h2>
+              <LiquorReviews liquorId={user.id} token={token} />
             </Fragment>
           ) : mode === "view" ? (
             <Fragment>
-              <h2>{item.name}</h2>
+              <h2>{user.name}</h2>
               <button onClick={() => setMode("edit")}>Edit</button>
-              <RemoveLiquorButton token={token} liquorId={item.id} />
-              <LiquorReviews liquorId={item.id} token={token} />
+              <RemoveLiquorButton token={token} liquorId={user.id} />
+              <LiquorReviews liquorId={user.id} token={token} />
             </Fragment>
           ) : (
             <UpdateLiquorForm
               token={token}
-              liquorId={item.id}
+              liquorId={user.id}
               setMode={setMode}
-              liquorName={item.name}
-              liquorDescription={item.description}
-              liquorImageUrl={item.imageurl}
-              liquorPrice={item.price}
-              liquorAlcoholContent={item.alcohol_content}
-              liquorCategory={item.category}
+              liquorName={user.name}
+              liquorDescription={user.description}
+              liquorImageUrl={user.imageurl}
+              liquorPrice={user.price}
+              liquorAlcoholContent={user.alcohol_content}
+              liquorCategory={user.category}
             />
           )}
         </div>
       ) : (
-        <h1>No item was found with ID: "{itemId}". Try again.</h1>
+        <h1>No user was found with ID: "{userId}". Try again.</h1>
       )}
     </div>
   );
 }
 
-export default LiquorDetails;
+export default User;
