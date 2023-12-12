@@ -1,38 +1,3 @@
-// import React from "react";
-// import { useState, useEffect } from "react";
-// import axios from "axios";
-// import styles from "./LiquorDetails.module.css";
-// import { useParams } from "react-router";
-// import { useApiHook } from "../hooks/useApi";
-// // const id = id;
-// async function fetchLiquorById(id) {
-//   const response = await axios.get(`${useApiHook}/items/${id}`);
-//   return response;
-// }
-// export default function LiquorDetails({ id }) {
-//   const [item, setItem] = useState();
-//   const { id } = useParams();
-//   useEffect(() => {
-//     async function getAndSetLiquor() {
-//       try {
-//         const response = await fetchLiquorById(id);
-//         setItem(response.data.item);
-//       } catch (error) {
-//         console.log(error);
-//       }
-//     }
-//     getAndSetLiquor();
-//   }, []);
-
-//   if (!item) {
-//     return <h1>Loading...</h1>;
-//   }
-//   return (
-//     <div className={styles.div}>
-//       <h1>{item.name}</h1>
-//     </div>
-//   );
-// }
 import { Fragment, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useApiHook } from "../hooks/useApi";
@@ -58,10 +23,15 @@ function LiquorDetails({ token = "", user }) {
   return (
     <div className="details">
       {item.id ? (
-        <div className="single-puppy">
+        <div className="single-liquor">
           {!user?.is_admin ? (
             <Fragment>
               <h2>{item.name}</h2>
+              <img id="liqpic" src={item.imageurl} />
+              <h4>{item.description}</h4>
+              <h4>${item.price}</h4>
+              <h4>{item.alcohol_content}</h4>
+              <h4>{item.category}</h4>
               <LiquorReviews liquorId={item.id} token={token} />
             </Fragment>
           ) : mode === "view" ? (
@@ -86,7 +56,7 @@ function LiquorDetails({ token = "", user }) {
           )}
         </div>
       ) : (
-        <h1>No puppy was found with id: "{itemId}". Try again.</h1>
+        <h1>No item was found with ID: "{itemId}". Try again.</h1>
       )}
     </div>
   );
