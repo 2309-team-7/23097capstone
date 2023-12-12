@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styles from "./RegisterForm.module.css";
 
 export default function RegisterForm({ setToken }) {
-  const [firstname, setFirstname] = useState("");
+  const [name, setName] = useState("");
   const [lastname, setLastname] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -11,18 +11,17 @@ export default function RegisterForm({ setToken }) {
   async function handleSubmit(event) {
     event.preventDefault();
     console.log({
-      firstname,
+      firstname: name,
       lastname,
       email,
       password,
     });
     try {
-      const response = await fetch(`http://localhost:3000/users/register`, {
+      const response = await fetch(`http://localhost:3000/api/users/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          firstname,
-          lastname,
+          name,
           email,
           password,
         }),
@@ -31,7 +30,7 @@ export default function RegisterForm({ setToken }) {
       console.log("Signup Result: ", result);
       setToken(result.token);
       setSuccessMessage(result.message);
-      setFirstname("");
+      setName("");
       setLastname("");
       setEmail("");
       setPassword("");
@@ -44,17 +43,11 @@ export default function RegisterForm({ setToken }) {
       {successMessage && <p>{successMessage}</p>}
       {error && <p>{error}</p>}
       <form className={styles.form} onSubmit={handleSubmit}>
-        <label>First Name:</label>
+        <label>Name:</label>
         <input
           className={styles.input}
-          value={firstname}
-          onChange={(event) => setFirstname(event.target.value)}
-        />
-        <label>Last Name:</label>
-        <input
-          className={styles.input}
-          value={lastname}
-          onChange={(event) => setLastname(event.target.value)}
+          value={name}
+          onChange={(event) => setName(event.target.value)}
         />
         <label>Email:</label>
         <input

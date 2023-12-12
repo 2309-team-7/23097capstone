@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useApiHook } from "../hooks/useApi";
-import styles from "./LiquorList.module.css";
-
-
+import  "./LiquorList.module.css";
 
 
 export default function LiquorList() {
@@ -25,26 +23,24 @@ export default function LiquorList() {
   if (isLoading) return <h3>Loading...</h3>;
   if (error) return <h3>Error: {error.message}</h3>; // Display error message
 
-  return (
-    <div>
-      <input
+  return <ul className='liqour-container'>
+     <input
         placeholder="Search..."
         value={searchText}
         onChange={(event) => setSearchText(event.target.value)}
       />
-      <ul className={styles.ul}>
-        {itemsToList && itemsToList.length > 0 ? (
-          itemsToList.map((item) => (
-            <li key={item.id}>
-              <Link to={`/${item.id}`}> 
-                <h3>{item.name}</h3> 
-              </Link>
-            </li>
-          ))
-        ) : (
-          <h3>No Booze Found!</h3>
-        )}
-      </ul>
-    </div>
-  );
+    {
+      itemsToList.length?
+      itemsToList.map(item => {
+        return <li key={item.id}>
+          <Link to={`/${item.id}`}>
+                <h3>{item.name}</h3>
+          </Link>
+          <img id='liqpic' src={item.imageurl} />
+        </li>
+      })
+      :
+      <h2> No Liqour Found</h2>
+    }
+    </ul>
 }

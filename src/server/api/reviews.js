@@ -17,19 +17,15 @@ reviewsRouter.get("/comments/:id", async (req, res, next) => {
 
 //POST - /api/reviews/ -
 reviewsRouter.post("/", utils.requireUser, async (req, res, next) => {
-  const { item_id, user_id, content, rating } = req.body;
+  const { review } = req.body;
 
-  const reviewData = {};
   try {
-    reviewData.item_id = item_id;
-    reviewData.user_id = user_id;
-    reviewData.content = content;
-    reviewData.rating = rating;
+    review.user_id = req.user.id;
 
-    const review = await createReview(reviewData);
+    const result = await createReview(review);
 
-    if (review) {
-      res.send(review);
+    if (result) {
+      res.send(result);
     } else {
       next({
         name: "ReviewCreationError",
@@ -52,8 +48,8 @@ reviewsRouter.patch("/:id", utils.requireUser, async (req, res, next) => {
         message: "There was no review with that id.",
       });
     } else {
-      const { content, rating } = req.body;
-      const updatedReview = await updateReview({ id: id, content, rating });
+      const { review } = req.body;
+      const updatedReview = await updateReview(review);
       if (updatedReview) {
         res.send(updatedReview);
       } else {
@@ -72,15 +68,18 @@ reviewsRouter.patch("/:id", utils.requireUser, async (req, res, next) => {
 reviewsRouter.delete("/:id", utils.requireUser, async (req, res, next) => {
   try {
     const { id } = req.params;
+
     const reviewToDelete = await getReview(id);
     if (!reviewToDelete) {
+      console.log("No review with that id");
       next({
         name: "NothingToDelete",
         message: `No review with the Id: ${id}`,
       });
     } else {
       const deletedReview = await deleteReview(id);
-      res.send({ success: true, ...deleteReview });
+      console.log(deletedReview);
+      res.send({ success: true });
     }
   } catch (err) {
     next(err);
