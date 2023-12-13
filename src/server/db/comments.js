@@ -3,15 +3,10 @@ const utils = require("./utils");
 
 const getCommentById = async (id) => {
   try {
-    const {
-      rows: [comment],
-    } = await db.query(
-      `
-    SELECT *
-    FROM comments
-    WHERE id= $1`,
-      [id]
-    );
+    const {rows: [comment] }  = await db.query(`
+    SELECT users.name, comments.content
+    FROM users, comments
+    WHERE users.id = comments.user_id AND comments.id = $1`,[id]);
     return comment;
   } catch (err) {
     throw err;
