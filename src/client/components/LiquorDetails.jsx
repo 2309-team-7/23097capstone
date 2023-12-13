@@ -29,22 +29,24 @@ function LiquorDetails({ token = "", user }) {
             <Fragment>
               <div className={styles.item}>
                 <ul className={styles.ul}>
-                  <li>
-              <h2>{item.name}</h2>
-              <img id="liqpic" src={item.imageurl} />
-              </li>
+              
+              <h2 className={styles.h2}>{item.name}</h2>
+              <img id="liqpic" className={styles.img} src={item.imageurl} />
               <li>
               <h3>Description</h3>
               <h4>{item.description}</h4>
               </li>
+              <hr className={styles.line}></hr>
               <li>
               <h3>Price</h3>
               <h4>${item.price}</h4>
               </li>
+              <hr className={styles.line}></hr>
               <li>
               <h3>Alcohol Content</h3>
               <h4>{item.alcohol_content}</h4>
               </li>
+              <hr className={styles.line}></hr>
               <li>
               <h3>Category</h3>
               <h4>{item.category}</h4>

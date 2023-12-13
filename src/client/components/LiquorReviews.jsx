@@ -33,7 +33,9 @@ export function LiquorReviews({ liquorId, token }) {
     <div>
       <ul>
       <AddReviewForm token={token} itemId={liquorId} />
+      <div className={styles.review}>
         <h3>Reviews</h3>
+        </div>
         {reviews.length === 0 ? (
           <li>No reviews yet</li>
         ) : (
