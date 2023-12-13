@@ -2,7 +2,12 @@ const express = require("express");
 const commentsRouter = express.Router();
 const utils = require("./utils");
 
-const { getCommentById, createComment, updateComment, deleteComment } = require("../db");
+const {
+  getCommentById,
+  createComment,
+  updateComment,
+  deleteComment,
+} = require("../db");
 
 //GET - /api/comments/:id - get comment by Id
 commentsRouter.get("/:id", async (req, res, next) => {
@@ -67,8 +72,10 @@ commentsRouter.patch("/:id", utils.requireUser, async (req, res, next) => {
 commentsRouter.delete("/:id", utils.requireUser, async (req, res, next) => {
   try {
     const { id } = req.params;
+    console.log("id", id);
     const commentToDelete = await getCommentById(id);
     if (!commentToDelete) {
+      console.log("comment not found");
       next({
         name: "Not Found",
         message: "No comment with that Id.",

@@ -40,9 +40,14 @@ export default function RegisterForm({ setToken }) {
   }
   return (
     <div className={styles.div}>
+      <div className={styles.box}>
       {successMessage && <p>{successMessage}</p>}
       {error && <p>{error}</p>}
       <form className={styles.form} onSubmit={handleSubmit}>
+        <div className={styles.header}>
+          <h2>Create Your Account</h2>
+        </div>
+        <hr className={styles.line}></hr>
         <label>Name:</label>
         <input
           className={styles.input}
@@ -67,10 +72,11 @@ export default function RegisterForm({ setToken }) {
             setPassword(event.target.value);
           }}
         />
-        <button className={styles.button} type="submit">
-          Submit
+        <button type="submit" className={styles.button}>
+          <h3 className={styles.submit}>Submit</h3>
         </button>
       </form>
+      </div>
     </div>
   );
 }

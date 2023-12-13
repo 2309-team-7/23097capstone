@@ -38,8 +38,9 @@ flex: 0 0 300px;
 #liqpic {
   max-width: 200px;
   max-height: 200px;
-  display:flex;
-  position:relative;
+  display:block;
+  margin-left: auto;
+  margin-right: auto;
 
 }
 
