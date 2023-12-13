@@ -52,7 +52,9 @@ export function AddCommentForm({ token, reviewId }) {
       {successMessage && <p>{successMessage}</p>}
       {error && <p>{error}</p>}
       <form className={styles.form} onSubmit={handleSubmit}>
-        <label>Comment</label>
+        <div>
+        <label>Comment:</label>
+        </div>
         <input
           value={comment.content}
           className={styles.input}
@@ -65,9 +67,11 @@ export function AddCommentForm({ token, reviewId }) {
             })
           }
         />
+        <div>
         <button className={styles.button} type="submit">
           Submit
         </button>
+        </div>
       </form>
     </div>
   );

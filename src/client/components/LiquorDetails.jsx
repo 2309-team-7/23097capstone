@@ -4,6 +4,7 @@ import { useApiHook } from "../hooks/useApi";
 import { LiquorReviews } from "./LiquorReviews";
 import { RemoveLiquorButton } from "./RemoveLiquorButton";
 import { UpdateLiquorForm } from "./UpdateLiquorForm";
+import styles from "./LiquorDetails.module.css";
 
 function LiquorDetails({ token = "", user }) {
   const [mode, setMode] = useState("view");
@@ -21,19 +22,39 @@ function LiquorDetails({ token = "", user }) {
   }
 
   return (
-    <div className="details">
+    <div className={styles.details}>
       {item.id ? (
         <div className="single-liquor">
           {!user?.is_admin ? (
             <Fragment>
+              <div className={styles.item}>
+                <ul className={styles.ul}>
+                  <li>
               <h2>{item.name}</h2>
               <img id="liqpic" src={item.imageurl} />
+              </li>
+              <li>
+              <h3>Description</h3>
               <h4>{item.description}</h4>
+              </li>
+              <li>
+              <h3>Price</h3>
               <h4>${item.price}</h4>
+              </li>
+              <li>
+              <h3>Alcohol Content</h3>
               <h4>{item.alcohol_content}</h4>
+              </li>
+              <li>
+              <h3>Category</h3>
               <h4>{item.category}</h4>
+              </li>
+              </ul>
+              </div>
               <LiquorReviews liquorId={item.id} token={token} />
             </Fragment>
+            
+          
           ) : mode === "view" ? (
             <Fragment>
               <h2>{item.name}</h2>

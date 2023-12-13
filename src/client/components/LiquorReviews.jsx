@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useApiHook } from "../hooks/useApi";
 import AddReviewForm from "./AddReviewForm";
 import { Review } from "./Review";
+import styles from "./LiquorReviews.module.css";
 
 export function LiquorReviews({ liquorId, token }) {
   const { data, isLoading, error } = useApiHook(`/items/reviews/${liquorId}`);
@@ -31,6 +32,7 @@ export function LiquorReviews({ liquorId, token }) {
   return (
     <div>
       <ul>
+      <AddReviewForm token={token} itemId={liquorId} />
         <h3>Reviews</h3>
         {reviews.length === 0 ? (
           <li>No reviews yet</li>
@@ -38,9 +40,10 @@ export function LiquorReviews({ liquorId, token }) {
           reviews.map((review) => {
             return <Review key={review.id} review={review} token={token} removeReviewById={removeReviewById} />;
           })
+          
         )}
       </ul>
-      <AddReviewForm token={token} itemId={liquorId} />
+      
     </div>
   );
 }
