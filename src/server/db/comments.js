@@ -15,15 +15,12 @@ const getCommentById = async (id) => {
 
 const getAllCommentsForReview = async (review_id) => {
   try {
-    const { rows } = await db.query(
-      `
+    const { rows } = await db.query(`
     SELECT reviews.id,users.name,comments.content
-    FROM comments
-    LEFT JOIN reviews ON comments.review_id = $1
-    INNER JOIN users ON comments.user_id = user.id;`,
+    FROM reviews, users, comments
+    WHERE reviews.id = $1 AND users.id = comments.user_id;`,
       [review_id]
     );
-
     return rows;
   } catch (err) {
     throw err;
