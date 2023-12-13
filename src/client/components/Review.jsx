@@ -2,11 +2,12 @@ import React, { Fragment, useState } from "react";
 import { LiquorComments } from "./LiquorComments";
 import { RemoveReviewButton } from "./RemoveReviewButton";
 import { UpdateReviewForm } from "./UpdateReviewForm";
+import styles from "./Review.module.css"
 
 export function Review({ review, token, removeReviewById }) {
   const [mode, setMode] = useState("view");
   return (
-    <li>
+    <li className={styles.li}>
       {mode === "view" ? (
         <Fragment>
           <h4>{review.content}</h4>

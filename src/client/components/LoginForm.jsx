@@ -29,8 +29,16 @@ export default function LoginForm({ setToken, setUser }) {
 
   return (
     <div className={styles.div}>
+      <div className={styles.box}>
       <form className={styles.form} onSubmit={handleSubmit}>
-        <label>Email:</label>
+        <div className={styles.welcome}>
+        <h2>Welcome Back!</h2>
+        <h3>Please Sign in to continue</h3>
+        </div>
+        <hr className={styles.line}></hr>
+        <label className={styles.labelEmail}>
+          Email:
+        </label>
         <input
           className={styles.input}
           name="email"
@@ -40,7 +48,9 @@ export default function LoginForm({ setToken, setUser }) {
           onChange={(event) => setEmail(event.target.value)}
         />
 
-        <label>Password:</label>
+        <label className={styles.labelPass}>
+          Password:
+          </label>
         <input
           className={styles.input}
           required
@@ -53,14 +63,15 @@ export default function LoginForm({ setToken, setUser }) {
         />
 
         <button type="submit" className={styles.button}>
-          Submit
+          <h3 className={styles.submit}>Submit</h3>
         </button>
-        <button>
+        <button className={styles.create}>
           <Link className={styles.a} to="/register">
-            Register
+            <h3>Create New Account</h3>
           </Link>
         </button>
       </form>
+      </div>
     </div>
   );
 }
