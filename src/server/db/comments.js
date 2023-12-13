@@ -9,7 +9,7 @@ const getCommentById = async (id) => {
       `
     SELECT *
     FROM comments
-    WHERE id= $1`,
+    WHERE id = $1`,
       [id]
     );
     return comment;
@@ -24,7 +24,8 @@ const getAllCommentsForReview = async (review_id) => {
       `
     SELECT reviews.id,users.name,comments.content
     FROM reviews, users, comments
-    WHERE reviews.id = $1 AND users.id = comments.user_id;`,[review_id]
+    WHERE reviews.id = $1 AND users.id = comments.user_id;`,
+      [review_id]
     );
 
     return rows;
@@ -93,6 +94,7 @@ const updateComment = async ({ id, ...fields }) => {
 };
 
 const deleteComment = async (id) => {
+  console.log(id);
   try {
     const {
       rows: [comment],
@@ -100,6 +102,7 @@ const deleteComment = async (id) => {
     DELETE FROM comments WHERE id = ${id} RETURNING *;`);
     return comment;
   } catch (error) {
+    console.log(error);
     throw error;
   }
 };
