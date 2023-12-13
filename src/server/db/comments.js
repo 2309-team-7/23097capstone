@@ -18,8 +18,9 @@ const getAllCommentsForReview = async (review_id) => {
     const { rows } = await db.query(
       `
     SELECT reviews.id,users.name,comments.content
-    FROM reviews, users, comments
-    WHERE reviews.id = $1 AND users.id = comments.user_id;`,
+    FROM comments
+    LEFT JOIN reviews ON comments.review_id = $1
+    INNER JOIN users ON comments.user_id = user.id;`,
       [review_id]
     );
 
